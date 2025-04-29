@@ -68,7 +68,7 @@ Devuelve una captura en tiempo real de los procesos en ejecución, ordenados de 
 
 ---
 
-## ``` pmap PID```
+## ```pmap PID```
 
 Devuelve un informe de la memoria virtual que utilizan los procesos ingresados.
 
