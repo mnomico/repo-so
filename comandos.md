@@ -8,7 +8,7 @@ A continuación se detallan comandos que se piden en los TPs, junto con algunos 
 
 # **Comandos relacionados con particionado de disco**
 
-## ``` fdisk [OPTIONS] DEVICE ```
+## ``` fdisk DEVICE ```
 
 Herramienta para maniupular la tabla de particiones de disco.
 
