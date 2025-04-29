@@ -1,5 +1,4 @@
 # Sistemas Operativos
 
 ## **Índice**
-
-- ### [Comandos UNIX](comandos.md)
+ [Comandos UNIX](comandos.md)
