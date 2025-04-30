@@ -8,7 +8,9 @@ A continuación se detallan comandos que se piden en los TPs, junto con algunos 
 
 # **Comandos relacionados con particionado de disco**
 
-## ``` fdisk DEVICE ```
+## ``` fdisk ```
+
+Uso: ``` fdisk DEVICE ```
 
 Herramienta para maniupular la tabla de particiones de disco.
 
@@ -26,7 +28,9 @@ Herramienta para maniupular la tabla de particiones de disco.
 
 ---
 
-## ``` mkfs.<type> DEVICE [SIZE] ```
+## ``` mkfs ```
+
+Uso: ``` mkfs.<type> DEVICE [SIZE] ```
 
 Crea un sistema de archivos de Linux con el tipo ingresado. type puede ser de cualquier tipo de sistema de archivos que soporte Linux, como ext2, ext3, ext4, o fat, entre otros. El argumento device puede ser el nombre de la partición (como por ejemplo /dev/sda1). Si la partición ya existe, se elimina y se formatea.
 
@@ -68,7 +72,9 @@ Devuelve una captura en tiempo real de los procesos en ejecución, ordenados de 
 
 ---
 
-## ```pmap PID```
+## ```pmap ```
+
+Uso: ```pmap PID```
 
 Devuelve un informe de la memoria virtual que utilizan los procesos ingresados.
 
@@ -82,7 +88,9 @@ Devuelve un informe de la memoria virtual que utilizan los procesos ingresados.
 
 ---
 
-## ``` kill PID ```
+## ``` kill ```
+
+Uso: ``` kill PID ```
 
 Termina un proceso con el PID ingresado mediante el envío de señales.
 
@@ -94,7 +102,9 @@ Termina un proceso con el PID ingresado mediante el envío de señales.
 
 ---
 
-## ``` nice [COMMAND] ```
+## ``` nice ```
+
+Uso: ``` nice [COMMAND] ```
 
 Inicia un proceso con la prioridad ingresada.
 
@@ -104,7 +114,9 @@ Inicia un proceso con la prioridad ingresada.
 
 ---
 
-## ``` renice PRIORITY ```
+## ``` renice ```
+
+Uso: ``` renice PRIORITY ```
 
 Altera la prioridad de los procesos en ejecución.
 
@@ -124,7 +136,9 @@ Altera la prioridad de los procesos en ejecución.
 
 # **Comandos relacionados con usuarios y grupos**
 
-## ``` useradd LOGIN ```
+## ``` useradd ```
+
+Uso: ``` useradd LOGIN ```
 
 Crea un nuevo usuario o actualiza la información que se utiliza por defecto de un usuario nuevo.
 
@@ -140,7 +154,9 @@ Crea un nuevo usuario o actualiza la información que se utiliza por defecto de 
 
 ---
 
-## ``` usermod LOGIN ```
+## ``` usermod ```
+
+Uso: ``` usermod LOGIN ```
 
 Modifica un usuario existente.
 
@@ -162,7 +178,9 @@ Modifica un usuario existente.
 
 ---
 
-## ``` userdel LOGIN ```
+## ``` userdel ```
+
+Uso: ``` userdel LOGIN ```
 
 Elimina un usuario existente y sus archivos.
 
@@ -174,7 +192,9 @@ Elimina un usuario existente y sus archivos.
 
 ---
 
-## ``` groupadd NEWGROUP ```
+## ``` groupadd ```
+
+Uso: ``` groupadd NEWGROUP ```
 
 Crea un nuevo grupo o actualiza la información que se utiliza por defecto de un grupo nuevo.
 
@@ -188,7 +208,9 @@ Crea un nuevo grupo o actualiza la información que se utiliza por defecto de un
 
 ---
 
-## ``` groupmod GROUP ```
+## ``` groupmod ```
+
+Uso: ``` groupmod GROUP ```
 
 Modifica un grupo existente.
 
@@ -204,7 +226,9 @@ Modifica un grupo existente.
 
 ---
 
-## ``` groupdel GROUP ```
+## ``` groupdel ```
+
+Uso: ``` groupdel GROUP ```
 
 Elimina un grupo existente.
 
@@ -230,13 +254,17 @@ Modifica los datos personales de un usuario.
 
 ---
 
-## ``` write user ```
+## ``` write ```
+
+Uso: ``` write USER MESSAGE ```
 
 Envía un mensaje a otro usuario.
 
 ---
 
-## ``` talk person ```
+## ``` talk ```
+
+Uso: ``` talk USER MESSAGE ```
 
 Cliente que abre una sesión para que dos usuarios hablen.
 
@@ -250,7 +278,9 @@ Interfaz para consultar los manuales del sistema.
 
 ---
 
-## ``` shutdown [TIME] [WALL] ```
+## ``` shutdown ```
+
+Uso: ``` shutdown [TIME] [WALL] ```
 
 Detiene, apaga o reinicia la computadora. El argumento TIME puede ser un string que indica el tiempo en el que se ejecutará la operación, seguido por un mensaje WALL que se enviará a los usuarios antes de ejecutar la operación.
 
