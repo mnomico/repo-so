@@ -134,9 +134,9 @@ Asumiendo un quantum q = 3:
 
 Proceso | Tiempo de servicio
 :- | :-
-P1 | 8
-P2 | 2 
-P3 | 3
+**P1** | 8
+**P2** | 2 
+**P3** | 3
 
 **Diagrama de Gantt**
 
@@ -147,13 +147,104 @@ P3 | 3
 
 Proceso|Tiempo de espera|Tiempo de retorno
 :-|:-|:-
-P1|5 |12
-P2|3 | 5
-P3|5 | 8
+**P1**|5 |12
+**P2**|3 | 5
+**P3**|5 | 8
 
 Tiempo medio de espera | Tiempo medio de retorno
 :- | :-
 4.3| 8.3
+
+---
+
+## Ejercicios
+
+#### Ejercicio 14 
+
+Considere el siguiente conjunto de procesos planificados:
+
+| Proceso | Llegada | Duración CPU |
+|:--------|:--------|:-------------|
+| **P1**  | 1       | 5            |
+| **P2**  | 5       | 2            |
+| **P3**  | 2       | 1            |
+| **P4**  | 4       | 6            |
+| **P5**  | 3       | 4            |
+
+**a)** Indicar cuál es el algoritmo de planificación con menor tiempo medio de Retorno
+
+**b)** Indicar cuál es el algoritmo de planificación con menor tiempo medio de Espera
+
+Considerando los siguientes algoritmos:
+1) SJF sin desalojo
+2) SJF con desalojo
+3) Round Robin con quantum de 2 unidades de tiempo
+
+Realizar el Diagrama de Gantt correspondiente
+
+**Tiempos de llegada**
+
+| Tiempo | 1| 2| 3| 4| 5|
+|:-------|--|--|--|--|--|
+|Procesos|P1|P3|P5|P4|P2| 
+
+**SJF sin desalojo**
+
+| Tiempo | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|
+|:-------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+| **P1** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **P2** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P3** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P4** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P5** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+| Proceso | Llegada | Duración CPU | Tiempo espera | Tiempo retorno |
+|:--------|:--------|:-------------|---------------|----------------|
+| **P1**  | 1       | 5            |               |                |
+| **P2**  | 5       | 2            |               |                |
+| **P3**  | 2       | 1            |               |                |
+| **P4**  | 4       | 6            |               |                |
+| **P5**  | 3       | 4            |               |                |
+
+|Tiempo medio de espera | Tiempo medio de retorno |
+|:----------------------|-------------------------|
+|                       |                         |
+
+**SJF con desalojo**
+
+| Tiempo | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|
+|:-------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+| **P1** | █|  | █| █| █| █|  |  |  |  |  |  |  |  |  |  |  |  |
+| **P2** |  |  |  |  |  |  | █| █|  |  |  |  |  |  |  |  |  |  | 
+| **P3** |  | █|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P4** |  |  |  |  |  |  |  |  |  |  |  |  | █| █| █| █| █| █| 
+| **P5** |  |  |  |  |  |  |  |  | █| █| █| █|  |  |  |  |  |  | 
+
+| Proceso | Llegada | Duración CPU | Tiempo espera | Tiempo retorno |
+|:--------|:--------|:-------------|---------------|----------------|
+| **P1**  | 1       | 5            | 1             | 6              |
+| **P2**  | 5       | 2            | 2             | 4              |
+| **P3**  | 2       | 1            | 0             | 1              |
+| **P4**  | 4       | 6            | 9             | 15             |
+| **P5**  | 3       | 4            | 6             | 10             |
+
+|Tiempo medio de espera | Tiempo medio de retorno |
+|:----------------------|-------------------------|
+|3.6                    |7.2                      |
+
+**Round Robin con q = 2**
+
+| Tiempo | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|
+|:-------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+| **P1** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **P2** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P3** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P4** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P5** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+
+|Tiempo medio de espera | Tiempo medio de retorno |
+|:----------------------|-------------------------|
+|                       |                         |
 
 ---
 
