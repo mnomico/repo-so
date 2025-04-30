@@ -2,6 +2,18 @@
 
 # Planificación de Procesos
 
+## Índice
+
+- [Planificación FCFS](#planificación-fcfs)
+
+- [Planificación SJF](#planificación-sjf)
+
+- [Planificación Round Robin](#planificación-round-robin)
+
+- [Ejercicios](#ejercicios)
+
+- [Algoritmos](#algoritmos)
+
 ## Conceptos
 
 ### Tiempo de servicio
@@ -115,9 +127,9 @@ Tiempo medio de espera | Tiempo medio de retorno
 
 ---
 
-## Planificación por turnos (Round Robin)
+## Planificación Round Robin
 
-El algoritmo de planificación Round Robin es similar a la planificación FCFS, pero se agrega el desalojo de procesos para realizar la conmutación entre ellos. 
+El algoritmo de planificación Round Robin o planificación por turnos es similar a la planificación FCFS, pero se agrega el desalojo de procesos para realizar la conmutación entre ellos. 
 En este algoritmo se define una unidad de tiempo denominada ***cuanto de tiempo*** o ***quantum***. Su valor está entre 10 y 100 milisegundos.
 Este quantum es el intervalo de tiempo máximo que se le asigna el CPU a cada proceso de la cola de procesos listos.
 
@@ -245,6 +257,10 @@ Realizar el Diagrama de Gantt correspondiente
 |Tiempo medio de espera | Tiempo medio de retorno |
 |:----------------------|-------------------------|
 |                       |                         |
+
+---
+
+## Algoritmos
 
 ---
 
