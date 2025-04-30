@@ -4,6 +4,8 @@
 
 ## Índice
 
+- [Conceptos](#conceptos)
+
 - [Planificación FCFS](#planificación-fcfs)
 
 - [Planificación SJF](#planificación-sjf)
