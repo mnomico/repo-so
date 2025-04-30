@@ -10,27 +10,33 @@ El ***tiempo de servicio*** es el tiempo total que un proceso necesita utilizar 
 
 ### Tiempo de retorno
 
-El ***tiempo de retorno*** es el tiempo total desde que un proceso se coloca en la cola de listos hasta que finaliza su ejecución. Se calcula de la siguiente manera:
+El ***tiempo de retorno*** es el tiempo total desde que un proceso se coloca en la cola de listos hasta que finaliza su ejecución. 
+Se calcula de la siguiente manera:
 
 > Tiempo de retorno = Tiempo de finalización − Tiempo de llegada
 
-Cuando hacemos los ejercicios, no consideramos el tiempo inicial: todos los procesos llegan en el tiempo 0. Por lo tanto, en los ejercicios el tiempo de retorno va a ser el tiempo en el que el proceso se termina de ejecutar.
+Cuando hacemos los ejercicios, no consideramos el tiempo inicial: todos los procesos llegan en el tiempo 0. 
+Por lo tanto, en los ejercicios el tiempo de retorno va a ser el tiempo en el que el proceso se termina de ejecutar.
 
 ### Tiempo de espera
 
-El ***tiempo de espera*** es el tiempo total que un proceso pasa esperando en la cola de listos antes de ser atendido por el CPU. Se calcula de la siguiente manera:
+El ***tiempo de espera*** es el tiempo total que un proceso pasa esperando en la cola de listos antes de ser atendido por el CPU. 
+Se calcula de la siguiente manera:
 
 > Tiempo de espera = Tiempo de retorno − Tiempo de servicio
 
 ### Tiempo de conmutación (o cambio de contexto)
 
-Cuando se selecciona un proceso de la cola de listos para asignarle el CPU, se debe llevar una serie de acciones para quitarle el CPU al proceso anterior, guardar el estado del proceso, y asignarle el CPU al proceso actual. Este tiempo se lo conoce como ***tiempo de conmutación*** o ***cambio de contexto***.
+Cuando se selecciona un proceso de la cola de listos para asignarle el CPU, se debe llevar una serie de acciones para quitarle el CPU al proceso anterior, guardar el estado del proceso, y asignarle el CPU al proceso actual. 
+Este tiempo se lo conoce como ***tiempo de conmutación*** o ***cambio de contexto***.
 
 ---
 
 ## Planificación FCFS
 
-El algoritmo de planificación FCFS (first-come, first-served; primero en llegar, primero en ser servido), es el más simple, ya que le asigna el CPU al primer proceso de la cola de listos. La implementación se basa en el uso de una cola FIFO. Cuando un proceso entra en la cola de listos, su PCB (Process Control Block; bloque de control de proceso) se pone al final de la cola. Cuando la CPU se encuentra disponible, se lo asigna al primer proceso de la cola y éste es eliminado de la cola.
+El algoritmo de planificación FCFS (first-come, first-served; primero en llegar, primero en ser servido), es el más simple, ya que le asigna el CPU al primer proceso de la cola de listos. 
+La implementación se basa en el uso de una cola FIFO. Cuando un proceso entra en la cola de listos, su PCB (Process Control Block; bloque de control de proceso) se pone al final de la cola. 
+Cuando la CPU se encuentra disponible, se lo asigna al primer proceso de la cola y éste es eliminado de la cola.
 
 ### Desventaja
 
@@ -42,23 +48,23 @@ Asumiendo que no hay tiempo de conmutación, y que todos los procesos ingresan e
 
 | Proceso   | Tiempo de Servicio   |
 |:----------|:---------------------|
-| P1        | 24                   |
-| P2        | 3                    |
-| P3        | 3                    |
+| **P1**    | 24                   |
+| **P2**    | 3                    |
+| **P3**    | 3                    |
 
 **Diagrama de Gantt**
 
-| Tiempo | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|
-|:---------|:--|:--|:--|:--|:--|:--|:--|:--|:--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
-| P1      | █ | █ | █ | █ | █ | █ | █ | █ | █ | █| █| █| █| █| █| █| █| █| █| █| █| █| █| █|   |   |   |   |   |   |
-| P2      |   |   |   |   |   |   |   |   |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | █ | █ | █ |   |   |   |
-| P3      |   |   |   |   |   |   |   |   |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |   |   |   | █ | █ | █ |
+| Tiempo  | 0| 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|
+|:--------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+| **P1**  | █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █| █|  |  |  |  |  |  |
+| **P2**  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | █| █| █|  |  |  |
+| **P3**  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | █| █| █|
 
 Proceso|Tiempo de espera|Tiempo de retorno
-:-|:-|:-
-P1|0 |24
-P2|24|27
-P3|27|30
+:-    |:-|:-
+**P1**|0 |24
+**P2**|24|27
+**P3**|27|30
 
 Tiempo medio de espera | Tiempo medio de retorno
 :- | :-
@@ -89,12 +95,12 @@ P4 | 3
 
 **Diagrama de Gantt**
 
-| Tiempo | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10|11|12|13|14|15|16|17|18|19|20|21|22|23
-|:----------|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
-| P4       | █ | █ | █ |   |   |   |   |   |   |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| P1       |   |   |   | █ | █ | █ | █ | █ | █ |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| P3       |   |   |   |   |   |   |   |   |   | █ | █| █| █| █| █| █|   |  |  |  |  |  |  |  |  |
-| P2       |   |   |   |   |   |   |   |   |   |   |  |  |  |  |  |  | █ | █| █| █| █| █| █| █|  |
+| Tiempo | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10|11|12|13|14|15|16|17|18|19|20|21|22|23|
+|:-------|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+| P4     | █ | █ | █ |   |   |   |   |   |   |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| P1     |   |   |   | █ | █ | █ | █ | █ | █ |   |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| P3     |   |   |   |   |   |   |   |   |   | █ | █| █| █| █| █| █|  |  |  |  |  |  |  |  |
+| P2     |   |   |   |   |   |   |   |   |   |   |  |  |  |  |  |  | █| █| █| █| █| █| █| █|
 
 Proceso|Tiempo de espera|Tiempo de retorno
 :-|:-|:-
@@ -105,11 +111,49 @@ P4|0 |3
 
 Tiempo medio de espera | Tiempo medio de retorno
 :- | :-
-7 | 12.75
+7  | 12.75
 
 ---
 
 ## Planificación por turnos (Round Robin)
+
+El algoritmo de planificación Round Robin es similar a la planificación FCFS, pero se agrega el desalojo de procesos para realizar la conmutación entre ellos. 
+En este algoritmo se define una unidad de tiempo denominada ***cuanto de tiempo*** o ***quantum***. Su valor está entre 10 y 100 milisegundos.
+Este quantum es el intervalo de tiempo máximo que se le asigna el CPU a cada proceso de la cola de procesos listos.
+
+Cuando se le asigna el CPU a un proceso, pueden pasar dos cosas: 
+- El proceso termina su ejecución antes de que se termine su quantum, y libera voluntariamente el CPU.
+- El quantum del proceso se acaba antes de que éste pueda terminar su trabajo.
+
+En este último caso, cuando sucede, se envía una interrupción al sistema operativo para realizar la conmutación (o cambio de contexto), y al proceso que tenía asignado el CPU se lo pone al final de la cola de procesos listos.
+Luego se le asigna el CPU al siguiente proceso situado en la cola de listos.
+
+### Ejemplo
+
+Asumiendo un quantum q = 3:
+
+Proceso | Tiempo de servicio
+:- | :-
+P1 | 8
+P2 | 2 
+P3 | 3
+
+**Diagrama de Gantt**
+
+| Tiempo | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |10|11|
+|:-------|:--|:--|:--|:--|:--|:--|:--|:--|:--|:--|--|--|
+| Proceso|P1 |P1 |P1 |P2 |P2 |P3 |P3 |P3 |P1 |P1 |P1|P1| 
+
+
+Proceso|Tiempo de espera|Tiempo de retorno
+:-|:-|:-
+P1|5 |12
+P2|3 | 5
+P3|5 | 8
+
+Tiempo medio de espera | Tiempo medio de retorno
+:- | :-
+4.3| 8.3
 
 ---
 
