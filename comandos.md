@@ -4,9 +4,19 @@
 
 A continuación se detallan comandos que se piden en los TPs, junto con algunos (no todos) de los argumentos que se pueden utilizar en ellos.
 
+## Índice
+
+- [Particionado de disco](#particionado-de-disco)
+
+- [Procesos](#procesos)
+
+- [Usuarios y grupos](#usuarios-y-grupos)
+
+- [Otros comandos](#otros-comandos)
+
 ---
 
-# **Comandos relacionados con particionado de disco**
+# **Particionado de disco**
 
 ## ``` fdisk ```
 
@@ -36,7 +46,7 @@ Crea un sistema de archivos de Linux con el tipo ingresado. type puede ser de cu
 
 ---
 
-# **Comandos relacionados con procesos**
+# **Procesos**
 
 ## ``` ps ```
 
@@ -134,7 +144,7 @@ Altera la prioridad de los procesos en ejecución.
 
 ---
 
-# **Comandos relacionados con usuarios y grupos**
+# **Usuarios y grupos**
 
 ## ``` useradd ```
 
