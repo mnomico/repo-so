@@ -29,9 +29,6 @@ Se calcula de la siguiente manera:
 
 > Tiempo de retorno = Tiempo de finalización − Tiempo de llegada
 
-Cuando hacemos los ejercicios, no consideramos el tiempo inicial: todos los procesos llegan en el tiempo 0. 
-Por lo tanto, en los ejercicios el tiempo de retorno va a ser el tiempo en el que el proceso se termina de ejecutar.
-
 ### Tiempo de espera
 
 El ***tiempo de espera*** es el tiempo total que un proceso pasa esperando en la cola de listos antes de ser atendido por el CPU. 
@@ -206,25 +203,25 @@ Realizar el Diagrama de Gantt correspondiente
 
 | Tiempo | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|
 |:-------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
-| **P1** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **P2** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
-| **P3** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
-| **P4** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
-| **P5** |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P1** | █| █| █| █| █|  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **P2** |  |  |  |  |  |  | █| █|  |  |  |  |  |  |  |  |  |  | 
+| **P3** |  |  |  |  |  | █|  |  |  |  |  |  |  |  |  |  |  |  | 
+| **P4** |  |  |  |  |  |  |  |  |  |  |  |  | █| █| █| █| █| █| 
+| **P5** |  |  |  |  |  |  |  |  | █| █| █| █|  |  |  |  |  |  | 
 
 | Proceso | Llegada | Duración CPU | Tiempo espera | Tiempo retorno |
 |:--------|:--------|:-------------|---------------|----------------|
-| **P1**  | 1       | 5            |               |                |
-| **P2**  | 5       | 2            |               |                |
-| **P3**  | 2       | 1            |               |                |
-| **P4**  | 4       | 6            |               |                |
-| **P5**  | 3       | 4            |               |                |
+| **P1**  | 1       | 5            | 0             | 5              |
+| **P2**  | 5       | 2            | 2             | 3              |
+| **P3**  | 2       | 1            | 4             | 5              |
+| **P4**  | 4       | 6            | 9             | 15             |
+| **P5**  | 3       | 4            | 6             | 10             |
 
 |Tiempo medio de espera | Tiempo medio de retorno |
 |:----------------------|-------------------------|
-|                       |                         |
+| 4.2                   | 7.6                     |
 
-**SJF con desalojo**
+**SJF con desalojo** o **SRT (shortest-remaining-time)**
 
 | Tiempo | 1| 2| 3| 4| 5| 6| 7| 8| 9|10|11|12|13|14|15|16|17|18|
 |:-------|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
