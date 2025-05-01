@@ -57,8 +57,8 @@ registro* roundRobin(proceso *procesos, int cantProcesos, int quantum, double re
                 registros[i].PID = procesos[i].PID;
                 registros[i].tiempoEspera = reloj - procesos[i].tiempoServicio;
                 registros[i].tiempoRetorno = reloj;
-            // Si el tiempo de servicio restante es mayor que el quantum, se ejecuta por el quantum.
             } else {
+                // Si el tiempo de servicio restante es mayor que el quantum, se ejecuta por el quantum.
                 reloj += quantum;
                 procesos[i].tiempoRestante -= quantum;
             }
