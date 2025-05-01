@@ -16,6 +16,8 @@
 
 - [Algoritmos](#algoritmos)
 
+---
+
 ## Conceptos
 
 ### Tiempo de servicio
