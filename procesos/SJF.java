@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Main {
+public class SJF {
 
     public final static double tiempo_conmutacion = 1;
 
