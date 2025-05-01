@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
     proceso *procesos = malloc(sizeof(proceso) * cant_procesos);
     for (int i = 0; i < cant_procesos; i++){
         procesos[i].PID = i;
-        procesos[i].tiempoServicio = atoi(argv[i]); 
+        procesos[i].tiempoServicio = atoi(argv[i + 1]); 
     }
 
     double reloj = 0;
