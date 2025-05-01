@@ -269,7 +269,7 @@ Realizar el Diagrama de Gantt correspondiente
 
 ## Algoritmos
 
-[SJF (sin desalojo) - C](sjf.c)
+SJF [C](sjf.c) - [Java](sjf.java)
 
 ---
 
