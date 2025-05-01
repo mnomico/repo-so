@@ -269,9 +269,9 @@ Realizar el Diagrama de Gantt correspondiente
 
 ## Algoritmos
 
-SJF [C](sjf.c) - [Java](SJF.java)
-
-Round Robin [C](roundRobin.c) - [Java](RoundRobin.java)
+|SJF| [C](sjf.c) | [Java](SJF.java)|
+|:--|------------|-----------------
+|**Round Robin**| [**C**](roundRobin.c) | [**Java**](RoundRobin.java)|
 
 ---
 
