@@ -3,4 +3,4 @@
 ## **Índice**
  [Comandos UNIX](comandos.md)
  
- [Planificación de Procesos](procesos.md)
+ [Planificación de Procesos](/procesos/procesos.md)
