@@ -271,6 +271,8 @@ Realizar el Diagrama de Gantt correspondiente
 
 SJF [C](sjf.c) - [Java](sjf.java)
 
+Round Robin [C](roundRobin.c) - Java
+
 ---
 
 ## [Volver atrás](readme.md)
