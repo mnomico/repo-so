@@ -269,6 +269,8 @@ Realizar el Diagrama de Gantt correspondiente
 
 ## Algoritmos
 
+[SJF (sin desalojo) - C](sjf.c)
+
 ---
 
 ## [Volver atrás](readme.md)
