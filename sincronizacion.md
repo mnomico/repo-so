@@ -1,6 +1,6 @@
 ## [Volver atrás](readme.md)
 
-# Semáforos
+# Sincronización de Procesos
 
 ## Índice
 
@@ -8,7 +8,7 @@
 
 - [Introducción](#introducción)
 
-- [Tipos de semáforos](#tipos-de-semáforos)
+- [Semáforos](#semáforos)
 
 - [Ejercicios](#ejercicios)
 
@@ -62,7 +62,7 @@ Todas las modificaciones del valor entero del semáforo en las operaciones wait(
 
 ---
 
-## Tipos de semáforos
+## Semáforos
 
 El valor que puede tomar un **semáforo contador** puede variar, mientras que el valor que puede tomar un **semáforo binario** sólo puede ser 0 o 1. A los semáforos binarios se los llama **mútex** ya que proporcionan exclusión mutua.
 

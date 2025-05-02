@@ -5,4 +5,4 @@
  
  [Planificación de Procesos](/procesos/procesos.md)
 
- [Semáforos](semaforos.md)
+ [Sincronización de Procesos](sincronizacion.md)
