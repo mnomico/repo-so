@@ -141,7 +141,6 @@ while (flag[i] && turno == i)
 
 // ---- sección crítica ----
 
-
 // al salir:
 flag[j] = false;
 ```
