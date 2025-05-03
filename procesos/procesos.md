@@ -97,6 +97,8 @@ El algoritmo SJF generalmente es el más óptimo, ya que el tiempo medio de espe
 
 El problema del algoritmo SJF es saber la duración del tiempo de servicio restante del siguiente proceso. Por este motivo, no se puede implementar en la práctica como un algoritmo de planificación a corto plazo.
 
+Otro problema es el de inanición: si hay un proceso con un tiempo de servicio muy grande, y siempre entran a la cola de listos procesos más cortos que él, nunca va a poder ejecutarse.
+
 ### Ejemplo
 
 Proceso | Tiempo de servicio
