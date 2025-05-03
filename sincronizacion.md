@@ -18,7 +18,7 @@
 
 ### Sección crítica
 
-Una sección crítica es un segmento del código de un proceso que accede a recursos compartidos, como variables, archivos o dispositivos, que no deben ser accedidos por más de un proceso al mismo tiempo para evitar problemas de concurrencia. Si más de un proceso accede concurrentemente a una sección crítica, puede ocurrir lo siguiente:
+Una sección crítica es un segmento del código de un proceso que accede a recursos compartidos, como variables, archivos o dispositivos, que no deben ser accedidos por más de un proceso al mismo tiempo para evitar problemas de concurrencia. Si más de un proceso accede concurrentemente a su sección crítica, puede ocurrir lo siguiente:
 
 - **Condiciones de carrera**: el resultado depende del orden impredecible de ejecución de los procesos.
 - **Inconsistencia de los datos**: ocurre cuando las operaciones no son atómicas y los datos quedan en estados incompletos.
@@ -26,9 +26,9 @@ Una sección crítica es un segmento del código de un proceso que accede a recu
 
 Para solucionar el problema de la sección crítica, se deben cumplir estas 3 características:
 
-- Exclusión mutua: sólo un proceso puede acceder a una sección crítica a la vez.
-- Progreso: si ningún proceso está ejecutando su sección crítica, cualquier proceso que solicite entrar debería poder hacerlo.
-- Espera limitada: ningún proceso debe esperar indefinidamente para entrar.
+- Exclusión mutua: sólo un proceso puede acceder a su sección crítica a la vez.
+- Progreso: si ningún proceso está ejecutando su sección crítica, cualquier proceso que solicite entrar a su sección crítica debería poder hacerlo, y dicha solicitud sólo debe resolverse entre aquellos procesos que estén queriendo entrar a sus secciones críticas. También esa solicitud debe concretarse en el menor tiempo posible.
+- Espera limitada: ningún proceso debe esperar indefinidamente para entrar a su sección crítica. Esto implica que debe haber un límite en la cantidad de veces que otros procesos puedan acceder a sus secciones críticas, para evitar la inanición.
 
 ### Cerrojo
 
