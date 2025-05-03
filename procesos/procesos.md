@@ -214,7 +214,7 @@ Realizar el Diagrama de Gantt correspondiente
 | Proceso | Llegada | Duración CPU | Tiempo espera | Tiempo retorno |
 |:--------|:--------|:-------------|---------------|----------------|
 | **P1**  | 1       | 5            | 0             | 5              |
-| **P2**  | 5       | 2            | 2             | 3              |
+| **P2**  | 5       | 2            | 2             | 4              |
 | **P3**  | 2       | 1            | 4             | 5              |
 | **P4**  | 4       | 6            | 9             | 15             |
 | **P5**  | 3       | 4            | 6             | 10             |
