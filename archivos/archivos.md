@@ -17,6 +17,17 @@ indicar los comandos utilizados.
 
 **Resolución**
 
+Para crear directorios, utilizamos el comando mkdir (make directory), que se utiliza de la siguiente manera:
+
+**mkdir NOMBRE_DIRECTORIO**
+
+Usamos el comando cd (change directory) para movernos entre los directorios. Se utiliza de la siguiente manera:
+
+**cd DIRECTORIO**
+
+El comando cd puede usarse también con "." o con "..". El "." hace referencia al directorio en el que nos ubicamos actualmente,
+mientras que ".." hace referencia al directorio padre del directorio actual.
+
 [terminal]$ mkdir home
 
 [terminal]$ cd home
@@ -117,4 +128,21 @@ Cuando usamos ".." estamos haciendo referencia al directorio padre del directori
 
 ---
 
+3. Mover la estructura y el contenido del subdirectorios ../contab 
+a partir del subdirectorio ../sueldos/. Indicar los comandos utilizados.
+
+[terminal]$ cd home
+
+Para mover archivos o directorios, utilizamos el comando mv (move). Se usa de la siguiente manera:
+
+**mv ARCHIVO DIRECTORIO_DESTINO**
+
+[terminal home]$ mv ./contab/* ./sueldos
+
+En este caso, cuando usamos el "*" con un directorio, estamos haciendo referencia a todo el contenido del directorio, 
+sin tener en cuenta el directorio mismo. Si nos pidieran mover también el directorio contab, el comando sería el siguiente:
+
+[terminal home]$ mv ./contab ./sueldos
+
+--
 
