@@ -8,3 +8,5 @@
  [Sincronización de Procesos](sincronizacion.md)
 
  [Administración de Memoria](memoria.md)
+
+ [Sistemas de Archivos](archivos.md)
