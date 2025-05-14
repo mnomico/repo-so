@@ -9,4 +9,4 @@
 
  [Administración de Memoria](memoria.md)
 
- [Sistemas de Archivos](archivos.md)
+ [Sistemas de Archivos](/archivos/archivos.md)
