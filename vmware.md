@@ -16,6 +16,10 @@ Ejemplo: En lugar de tener 5 servidores físicos, podés tener 1 servidor físic
 
     Habilita funciones como migración en caliente (vMotion), alta disponibilidad (HA) y balanceo de carga (DRS).
 
+# ¿Qué es una máquina virtual?
+
+    Es una computadora virtual que corre dentro de un hipervisor. Tiene su propio SO, CPU, RAM, disco virtual, etc.
+
 # ¿Qué es un hipervisor?
 
     Un hipervisor es el software que permite ejecutar y gestionar máquinas virtuales (VMs) sobre un hardware físico.
