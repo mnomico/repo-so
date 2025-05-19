@@ -1,3 +1,25 @@
+# ¿Qué es virtualización?
+
+    La virtualización es una tecnología que permite crear versiones virtuales de recursos físicos, como servidores, almacenamiento, redes o sistemas operativos.
+
+Ejemplo: En lugar de tener 5 servidores físicos, podés tener 1 servidor físico que corre 5 máquinas virtuales (VMs), cada una con su propio sistema operativo y aplicaciones.
+
+¿Para qué sirve?
+
+    Ahorra costos de hardware (menos equipos físicos).
+
+    Mejora el aprovechamiento de recursos (CPU, RAM, disco).
+
+    Facilita la administración y escalabilidad.
+
+    Permite aislar entornos de prueba, desarrollo y producción.
+
+    Habilita funciones como migración en caliente (vMotion), alta disponibilidad (HA) y balanceo de carga (DRS).
+
+# ¿Qué es un hipervisor?
+
+    Un hipervisor es el software que permite ejecutar y gestionar máquinas virtuales (VMs) sobre un hardware físico.
+
 # ¿Qué diferencia hay entre un snapshot y un backup?
 
     Un snapshot guarda el estado actual de una VM (disco, memoria y configuración) en ese momento para poder volver atrás rápidamente.
@@ -31,6 +53,7 @@
     Montar una imagen ISO para instalar el SO.
 
     Finalizar y encender la VM.
+    
 # ¿Qué es vCenter y qué ventajas aporta frente a administrar directamente en ESXi?
 
     vCenter Server es la herramienta de administración centralizada de VMware.
@@ -71,6 +94,7 @@ Sin vCenter solo podés administrar cada ESXi de forma aislada.
     Tener la licencia adecuada que soporte vMotion.
 
     La VM debe tener VMware Tools instaladas y estar encendida.
+    
 # ¿Para qué se instalan las VMware Tools en una máquina virtual?
 
 Para mejorar:
@@ -86,8 +110,9 @@ Para mejorar:
     Informes de salud y estado de la VM.
 
 # ¿Qué ventajas tiene un hypervisor Type 1 sobre un Type 2?
+
 |Type 1 (bare-metal) |	Type 2 (hosted)
-|:-------------------|:---------------|
+|:-------------------|:----------------|
 |Se instala directo en el hardware.|	Se instala sobre un SO existente.
 |Mejor rendimiento y estabilidad.|	Más lento, depende del SO host.
 |Ideal para producción y datacenters.|	Uso personal o laboratorios.
