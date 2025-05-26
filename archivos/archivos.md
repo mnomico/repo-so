@@ -323,6 +323,16 @@ Da permisos de escritura sólo al propietario. También se puede hacer de esta m
 chmod 200 archivo.txt
 ```
 
+Se pueden asignar varios permisos para los diferentes tipos de usuarios al mismo tiempo. Por ejemplo:
+
+```
+chmod 671 juego
+```
+En este comando:
+- 6: se le da permiso de lectura y escritura al owner. 6 porque 4 (lectura) + 2 (escritura).
+- 7: se le dan todos los permisos al group. 7 porque 4 (lectura) + 2 (escritura) + 1 (ejecución).
+- 1: se le da permiso de ejecución a other.
+
 El comando chown se puede utilizar para cambiar el propietario del archivo:
 
 ```
