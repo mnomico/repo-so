@@ -31,8 +31,6 @@ indicar los comandos utilizados.
 
 ![Ejercicio 1](ej1.png)
 
-**Resolución**
-
 Para crear directorios, utilizamos el comando mkdir (make directory), que se utiliza de la siguiente manera:
 
 ```
@@ -89,8 +87,6 @@ mientras que ".." hace referencia al directorio padre del directorio actual.
 "grp" en ../hojasXLS/Graph. 
 
 Indicar los comandos utilizados.
-
-**Resolución**
 
 Primero creo unos archivos para hacer el ejercicio:
 
@@ -171,8 +167,6 @@ Cuando usamos ".." estamos haciendo referencia al directorio padre del directori
 **3**. Mover la estructura y el contenido del subdirectorios /contab 
 a partir del subdirectorio /sueldos. Indicar los comandos utilizados.
 
-**Resolución**
-
 ```
 [root@nomico ~]$ cd home
 ```
@@ -198,10 +192,165 @@ sin tener en cuenta el directorio mismo. Si nos pidieran mover también el direc
 
 **4**. Indicar que comandos utilizaría para conocer el contenido de un subdirectorio, y qué modificadores usaría 
 (describir por los menos 6 de ellos), indique cuál es el que brinda mayor cantidad de información. 
-En este caso se puede pedir ayuda al sistema mediante el uso: " comando --help" o el empleo del mandato "man comando". 
+En este caso se puede pedir ayuda al sistema mediante el uso del comando "--help" o el empleo del mandato "man comando". 
 ¿Da lo mismo usar “ls home –l” que ” ls –l home”?
 
-**Resolución**
+Para ver el contenido de un directorio podemos usar el comando ls (list).
+
+Algunos de sus argumentos son los siguientes:
+
+```
+ls -a
+```
+Muestra todos los archivos, incluso los ocultos (empiezan con ".") y también el directorio actual (.) y el directorio padre (..).
+
+```
+ls -i
+```
+Muestra el contenido del directorio y el inodo índice de cada archivo
+
+```
+ls -l
+```
+Muestra el contenido del directorio en un formato más largo. Este es el que brinda mayor cantidad de información, y se puede combinar con otros argumentos para mostrar aún más información.
+
+```
+ls -r
+```
+Muestra el contenido del directorio de forma inversa
+
+```
+ls -S
+```
+Muestra el contenido del directorio de forma ordenada, de mayor a menor tamaño.
+
+```
+ls -t
+```
+Muestra el contenido del directorio de forma ordenada, de más nuevo a más antiguo.
+
+Un detalle a tener en cuenta es que **el orden de los argumentos no afecta la salida**, entonces si hago:
+
+```
+ls -l /home
+```
+ó
+```
+ls /home -l
+```
+La salida resulta ser la misma.
+
+---
+
+**5**. Indique qué comando utilizaría para ver el contenido de un archivo.
+
+```
+cat archivo
+```
+Muestra todo el contenido de un archivo.
+
+```
+more archivo
+```
+Muestra el contenido de un archivo de forma paginada.
+
+```
+less archivo
+```
+Similar a more, pero permite desplazarse en el archivo libremente y otras funciones como búsqueda de palabras y modificar el archivo.
+
+```
+head archivo [-n cantidad]
+```
+Muestra las primeras n líneas del archivo, por defecto son 10 y se pueden especificar con -n.
+
+```
+tail archivo [-n cantidad]
+```
+Igual que head pero para ver las últimas n líneas del archivo. En general se utiliza para ver logs.
+
+---
+
+**6**. Indicar que tipos de protección se pueden incorporar a los archivos.
+
+A cada archivo se le puede asignar permisos, los cuales pueden variar entre los tres tipos de usuarios (owner, group y other).
+
+Con chmod se pueden cambiar los permisos de un archivo:
+
+```
+chmod [opción] archivo
+```
+
+Dentro de las opciones que se pueden especificar, hay que tener en cuenta lo siguientes caracteres:
+
+**Tipos de usuarios**
+
+- **a**: todos los usuarios
+- **u**: owner del archivo
+- **g**: group del archivo
+- **o**: other (otros usuarios)
+
+**Operadores**
+
+- **+**: agregar permiso
+- **-**: remover permiso
+- **=**: asignar permiso
+
+**Permisos**
+
+- **r**: lectura. También se representa con el valor **4**.
+- **w**: escritura. También se representa con el valor **2**.
+- **x**: ejecución. También se representa con el valor **1**.
+
+Ejemplos:
+
+```
+chmod a=r archivo.txt
+```
+Da permisos de lectura a todos los usuarios para archivo.txt. También se puede hacer de esta manera:
+
+```
+chmod 444 archivo.txt
+```
+Cada unidad del número representa a un tipo de usuario. El primer 4 significa que se le asigna el permiso de lectura al owner, el segundo 4 le asigna permiso de lectura al group, y el tercer 4 le asigna permiso de lectura al resto de usuarios (other).
+
+```
+chmod u=w archivo.txt
+```
+Da permisos de escritura sólo al propietario. También se puede hacer de esta manera:
+
+```
+chmod 200 archivo.txt
+```
+
+El comando chown se puede utilizar para cambiar el propietario del archivo:
+
+```
+chown usuario archivo
+```
+
+Por ejemplo:
+
+```
+chown nomico /home/UNLu/archivo1.txt
+```
+
+Cambio el owner a nomico para archivo1.txt.
+
+El comando chgrp se puede utilizar para cambiar el grupo del archivo, de manera similar a chown:
+
+```
+chgrp devs /home/contab/arch/*.cpp
+```
+Cambio el grupo a devs para todos los archivos que terminan con .cpp.
+
+---
+
+**7**. Para los archivos ubicados en el subdirectorio /hojasXLS/Horarios 
+cambie los permisos que presentan al modo de sólo lectura para los usuarios del sistema,
+lectura / escritura para los miembros del grupo y lectura/escritura y ejecución para el dueño. 
+Indicar el comando utilizado.
+
 
 ---
 
