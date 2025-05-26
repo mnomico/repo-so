@@ -278,7 +278,7 @@ A cada archivo se le puede asignar permisos, los cuales pueden variar entre los 
 Con chmod se pueden cambiar los permisos de un archivo:
 
 ```
-chmod [opción] archivo
+chmod opciónes archivo
 ```
 
 Dentro de las opciones que se pueden especificar, hay que tener en cuenta lo siguientes caracteres:
@@ -361,6 +361,35 @@ cambie los permisos que presentan al modo de sólo lectura para los usuarios del
 lectura / escritura para los miembros del grupo y lectura/escritura y ejecución para el dueño. 
 Indicar el comando utilizado.
 
+Para cambiar los permisos de un directorio y de sus archivos, se puede utilizar el argumento -R:
+
+```
+chmod -R opciones directorio
+```
+Lo que hace es cambiar de manera recursiva los permisos del directorio.
+
+Para este caso, si queremos:
+
+- Darle permisos de lectura, escritura, y ejecución para el owner: 7
+- Darle permisos de lectura y escritura para el group: 6
+- Darle permisos de lectura a other: 4
+
+Entonces el comando sería:
+```
+[root@nomico ~]# chmod -R 764 /home/hojasXLS/Horarios
+```
+
+Podemos verificar si se hizo correctamente con el comando ls:
+```
+[root@nomico ~]# ls -l /home/hojasXLS/Horarios
+total 0
+-rwxrw-r-- 1 root root 0 may 26 12:57 texto.txt
+```
+
+---
+
+**8**. ¿Qué comando me permite ver el sistema de archivo donde residen los archivos? 
+Indique si tiene modificadores.
 
 ---
 
