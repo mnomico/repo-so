@@ -1,4 +1,4 @@
-## [Volver atrás](readme.md)
+## [Volver atrás](../readme.md)
 
 # Sistemas de Archivos
 
@@ -203,4 +203,6 @@ En este caso se puede pedir ayuda al sistema mediante el uso: " comando --help" 
 
 **Resolución**
 
+---
 
+## [Volver atrás](../readme.md)

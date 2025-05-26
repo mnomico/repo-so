@@ -1,4 +1,4 @@
-## [Volver atrás](readme.md)
+## [Volver atrás](../readme.md)
 
 # Planificación de Procesos
 
@@ -279,4 +279,4 @@ Realizar el Diagrama de Gantt correspondiente
 
 ---
 
-## [Volver atrás](readme.md)
+## [Volver atrás](../readme.md)
