@@ -128,7 +128,7 @@ Ahora cuando queremos tomar un conjunto de archivos con un mismo formato, usamos
 
 - **".cpp" en /contab/arch**
 ```
-[root@nomico home]$ cp ./UNLu/*.cpp ./textos/DOC
+[root@nomico home]$ cp ./UNLu/*.cpp ./contab/arch
 ```
 
 - **".txt" en /contab/TXT**
