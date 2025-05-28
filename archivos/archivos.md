@@ -391,6 +391,89 @@ total 0
 **8**. ¿Qué comando me permite ver el sistema de archivo donde residen los archivos? 
 Indique si tiene modificadores.
 
+Para ver el sistema de archivo donde residen los archivos se puede usar el comando df.
+
+Uso:
+
+```
+df [archivo]
+```
+
+Modificadores:
+
+```
+df -h
+```
+Muestra tamaños en formato legible (KB, MB, GB)
+
+```
+df -T
+```
+Muestra el tipo de sistema de archivos (ext4, xfs, etc.)
+
+```
+df -i
+```
+Muestra información sobre inodos (total, usados, libres)
+
 ---
+
+**9**. Indique como se usa el comando “mount” para conectar un dispositivo portátil
+de almacenamiento de diferente tipo de Sistema de Archivo, de un ejemplo.
+¿Cuál sería el comando para desmontarlo antes de sacarlo físicamente?
+
+La forma estándar para invocar el comando mount es la siguiente:
+
+```
+mount [-t tipo] dispositivo directorio
+```
+
+- El argumento -t se utiliza para especificar el tipo de sistema de archivos del dispositivo. En general, el comando mount es capaz de detectarlo, por lo que puede ser opcional usarlo.
+- dispositivo es el archivo que representa al dispositivo. Se puede encontrar usando el comando lsblk. Es un archivo cuya ruta es /dev/sdXY siendo X una letra e Y un número, por ejemplo /dev/sda1 o /dev/sdb2.
+- directorio es el punto de montaje, es decir el lugar en donde se va a montar el contenido del dispositivo. Es un directorio vacío cuya ruta es /mnt/dir siendo dir un nombre cualquiera, por ejemplo /mnt/usb.
+
+Ejemplo:
+
+Si quiero montar un pendrive cuyo sistema de archivos es de tipo exfat, hago lo siguiente:
+- Conecto el pendrive a la computadora (obviamente)
+- Uso lsblk para encontrar el archivo asociado con el pendrive. Puedo usarlo con el argumento -f para que me de más información para poder identificarlo mejor. En este caso supongamos que es /dev/sda4
+- Creo un directorio en /mnt con un nombre, en este caso podría ser pendrive
+```
+mkdir /mnt/pendrive
+```
+- Ya tengo la ruta del archivo del dispositivo y la del directorio en donde se montará el contenido, ahora invoco el comando mount con toda la información:
+```
+mount /dev/sda4 /mnt/pendrive
+```
+ó
+```
+mount -t exfat /dev/sda4 /mnt/pendrive
+```
+si mount no puede detectar automáticamente el tipo de sistema de archivos que utiliza el dispositivo.
+
+Ahora, si lo quiero desmontar, uso el comando umount:
+```
+umount archivo | directorio
+```
+
+- archivo hace referencia al archivo asociado con el dispositivo, que puede ser por ejemplo /dev/sdXY como dijimos antes.
+- En vez de usar el archivo asociado con el dispositivo podemos usar el directorio en donde está montado el dispositivo, como por ejemplo /mnt/usb.
+
+Para desmontar el pendrive del ejemplo anterior, podemos hacerlo de la siguiente manera:
+```
+umount /dev/sda3
+```
+ó
+```
+umount /mnt/pendrive
+```
+
+---
+
+**10**. ¿Qué información puede ser útil al usar el “stat” y el “tune2fs”? De ejemplos.
+
+
+---
+
 
 ## [Volver atrás](../readme.md)
