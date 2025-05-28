@@ -472,6 +472,64 @@ umount /mnt/pendrive
 
 **10**. ¿Qué información puede ser útil al usar el “stat” y el “tune2fs”? De ejemplos.
 
+```
+stat archivo
+```
+El comando stat sirve para ver los siguientes parámetros de un archivo:
+
+- Nombre del archivo
+- Tamaño del archivo
+- Cantidad de bloques que ocupa
+- Número de inodo
+- Permisos de acceso
+- UID y GID del owner y del group
+- Tiempos de último acceso, creación, y modificación
+
+```
+tune2fs -l dispositivo
+```
+El comando tune2fs sirve para ajustar parámetros de sistemas de archivos ext2, ext3 y ext4. Con el argumento -l se pueden ver algunos parámetros:
+
+- Tipo de sistema de archivos
+- Directorio en el cual está montado
+- Cantidad de inodos y bloques (total, ocupados y libres)
+- Porcentaje de espacio reservado
+- Fecha del último montaje
+- Fecha del último chequeo
+- Número de chequeos antes de forzar un fsck
+- UUID del sistema de archivos
+
+---
+
+**11**. Ídem anterior para “fsck” y “fdisk”
+
+```
+fsck dispositivo
+```
+
+El comando fsck se utiliza para chequear y opcionalmente reparar sistemas de archivos de Linux. Puede brindar la siguiente información:
+
+- Estado del sistema de archivos (si está limpio o dañado)
+- Cantidad de errores encontrados y corregidos
+- Cantidad de bloques libres y usados
+- Cantidad de inodos libres y usados
+- Información sobre directorios huérfanos, bloques dañados, etc.
+
+```
+fdisk -l disco
+```
+
+El comando fdisk se utiliza para crear y manipular tablas de particionado de un disco. Con el argumento -l muestra la siguiente información sobre el disco:
+
+- Nombre del dispositivo y tamaño total
+- Tipo de tabla de particiones (MBR o GPT)
+
+Detalle de cada partición:
+- Nombre (/dev/sda1)
+- Tipo de partición (Linux, EFI, swap, etc.)
+- Tamaño
+- Comienzo y fin de sector
+- Indicador de arranque (bootable)
 
 ---
 
