@@ -4,7 +4,325 @@
 
 ## Índice
 
+- [Guía Teórica](#guía-teórica)
 - [Ejercicios](#ejercicios)
+
+---
+
+## Guía Teórica
+
+1. Describir las distintas operaciones que se pueden realizar sobre un archivo.
+
+	- **Creación**: permite generar un nuevo archivo en el sistema de archivos. Reserva un espacio en disco, crea una entrada en el directorio correspondiente e inicializa los metadatos del archivo.
+	- **Apertura**: antes de acceder a un archivo, se debe abrir. Se asigna un descriptor de archivo y carga los metadatos en memoria.
+	- **Lectura**: permite extraer datos de un archivo abierto. Se leen bloques de datos en la memoria del proceso.
+	- **Escritura**: guarda datos en un archivo, ya sea sobrescribiendo o agregando información.
+	- **Cierre**: libera los recursos asociados al archivo y garantiza que los datos escritos se guarden correctamente en el disco.
+	- **Eliminación**: borra un archivo del sistema, eliminando su entrada del directorio y liberando el espacio en disco.
+	- **Cambio de nombre**.
+	- **Búsqueda**: permite posicionarse en una parte específica del archivo.
+
+---
+
+2. Describir los diferentes métodos de acceso a los archivos, indicar si existen ventajas o desventajas.
+
+	- **Acceso Secuencial**: los datos se leen o escriben en un orden secuencial, desde el principio hasta el final del archivo.
+	    
+        **Ventajas**:
+		- Simple y fácil de implementar.
+		- Eficiente para operaciones que requieren procesar todo el archivo.
+		
+        **Desventajas**:
+		- Ineficiente para acceder a datos específicos en una posición aleatoria.
+	- **Acceso Aleatorio** (o Directo): permite acceder a cualquier parte del archivo directamente, sin necesidad de recorrer los datos anteriores.
+		
+        **Ventajas**:
+		- Rápido acceso a cualquier posición del archivo.
+		
+        **Desventajas**:
+		- Más complejo de implementar que el acceso secuencial, y puede requerir más recursos.
+	
+    - **Acceso Indexado**: utiliza un índice para acceder a los datos del archivo. El índice contiene punteros a las ubicaciones de los datos dentro del archivo.
+		
+        **Ventajas**:
+		- Combina las ventajas del acceso secuencial y aleatorio.
+		- Permite búsquedas rápidas y eficientes, especialmente en archivos grandes.
+		
+        **Desventajas**:
+		- Requiere espacio adicional para almacenar el índice.
+		- La gestión del índice puede añadir complejidad al sistema.
+
+---
+
+3. Describir el método de asignación contigua. ¿Qué entiende por compactación?
+	
+    Es un método de almacenamiento en el que un archivo se almacena en bloques contiguos del disco
+	
+    - Se busca un bloque contiguo de tamaño suficiente en el disco.
+	- Se asigna todo el espacio necesario en una ubicación única y continua.
+	- Se almacena una referencia en la tabla de archivos indicando la dirección inicial y la longitud del archivo.
+	
+    **Ventajas**:
+	- Rápido acceso secuencial y directo.
+	- Implementación simple.
+	- Eficiencia en lectura y escritura, ya que reduce los movimientos del cabezal del disco.
+	
+    **Desventajas**:
+	- Fragmentación externa.
+	- Dificultad para expandir archivos.
+	- Uso ineficiente del espacio: si un archivo reserva más espacio del necesario para futuras expansiones, puede desperdiciar almacenamiento.
+	
+    La **compactación** es una técnica utilizada para reducir la fragmentación externa en la asignación contigua. Consiste en mover archivos en el disco para juntar los espacios libres y crear bloques contiguos más grandes.
+	
+    Requiere tiempo y procesamiento, ya que implica mover datos físicamente en el disco.
+
+---
+
+4. Describir el método de asignación enlazada.
+		
+    Es un método de almacenamiento en el que cada bloque contiene un puntero que indica la ubicación del siguiente bloque del archivo.
+	
+    - Cuando se crea un archivo, el sistema encuentra bloques disponibles. Cada bloque almacena parte del archivo + un puntero al siguiente bloque.
+	- El sistema mantiene una referencia al primer bloque (cabeza) del archivo en la tabla de archivos.
+	- Para leer el archivo, el sistema sigue la cadena de punteros hasta el último bloque.
+	
+    **Ventajas**:
+	- Elimina la fragmentación externa.
+	- Facilita la expansión de archivos.
+
+	**Desventajas**:
+	- Acceso más lento que el contiguo.
+	- Mayor uso de espacio.
+	- No es eficiente para acceso directo.
+
+---
+
+5. Describir el método de asignación indexada.
+	
+    Es un método en el que los bloques de un archivo se almacenan en cualquier lugar del disco. Sus ubicaciones se guardan en un bloque índice.
+	
+    - Cada archivo tiene un bloque índice que almacena las direcciones de todos los bloques que contienen sus datos.
+	- Para acceder a un bloque específico, el sistema primero consulta el bloque índice y luego accede directamente al bloque de datos.
+	
+    **Ventajas**: 
+	- Acceso directo eficiente.
+	- Elimina la fragmentación externa.
+	- Más eficiente que la asignación enlazada.
+		
+    **Desventajas**:
+	- Uso adicional de espacio.
+	- Límite de tamaño.
+	- Sobrecarga en archivos pequeños.
+
+---
+
+6. Crear un cuadro comparativo de los distintos métodos de asignación de espacio en disco indicando ventajas y desventajas.	![[asignacionDeEspacio.png]]
+    
+    | Método                  | Descripción                                                                      | Ventajas                                                                      | Desventajas                                                                                                        |
+    |:------------------------|:---------------------------------------------------------------------------------|:------------------------------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------------|
+    | **Asignación Contigua** | Los bloques del archivo se almacenan de forma contigua en el disco.              | Acceso rápido (acceso directo y secuencial eficiente). Fácil de implementar.  | Fragmentación externa. Difícil expansión de archivos.                                                              |
+    | **Asignación Enlazada** | Cada bloque contiene un puntero al siguiente, formando una lista enlazada.       | No hay fragmentación externa. Permite archivos dinámicos sin realocación.     | Acceso más lento (se debe seguir la cadena de punteros). No permite acceso aleatorio eficiente.                    |
+    | **Asignación Indexada** | Se usa un bloque índice que almacena las direcciones de los bloques del archivo. | Permite acceso aleatorio eficiente. No hay fragmentación externa.             | Se necesita espacio adicional para el bloque índice. Puede requerir múltiples bloques índice en archivos grandes.  |
+
+---
+
+7. ¿Qué ventajas introduce el empleo de un sistema de directorio?
+	
+    El uso de un sistema de directorios mejora la organización, seguridad y eficiencia del almacenamiento, facilitando la gestión de archivos en sistemas operativos modernos.
+
+---
+
+8. Describa cada uno de los componentes de un sistema de archivos que se tiene luego de formatear lógicamente un disco de almacenamiento masivo, en UNIX.
+	
+    - **Bloque de arranque**: se encuentra en el primer bloque del sistema de archivos. Contiene el código del cargador de arranque si el sistema de archivos es el principal del disco.
+	- **Superbloque**: contiene metadatos sobre el sistema de archivos, como:
+		- Tamaño del sistema de archivos.
+		- Número de inodos y bloques de datos.
+		- Ubicación del bloque índice de inodos.
+		- Información sobre espacio libre y ocupado.
+	- **Tabla de inodos**: es una estructura de metadatos donde cada archivo y directorio tiene un inodo asociado. Cada inodo almacena información sobre un archivo:
+		- Tipo de archivo.
+		- Permisos y propietario.
+		- Tamaño del archivo.
+		- Tiempos de acceso, modificación y creación.
+		- Punteros a bloques de datos.
+	- **Bloques de datos**: almacenan el contenido de los archivos.
+	- **Gestión del espacio libre**: mantiene un registro de los bloques y los inodos libres.
+
+---
+
+9. Ídem anterior para un sistema del tipo DOS.
+	
+    - **Sector de arranque**: ubicado en el primer sector del disco. Contiene el código de arranque del sistema y los parámetros del sistema de archivos, como:
+		- Tamaño del sector y del clúster.
+		- Número de sectores por pista y cabezales.
+		- Ubicación de la Tabla de Asignación de Archivos (FAT).
+	- **FAT**: almacena la asignación de los clústeres en el disco. Cada entrada en la FAT indica si un clúster:
+		- Está libre.
+		- Es el final de un archivo.
+		- Está asignado a un archivo y enlazado a otro clúster.
+	- **Directorio raíz**: contiene entradas de archivos y subdirectorios, cada una con:
+		- Nombre del archivo.
+		- Atributos.
+		- Fecha y hora de creación/modificación.
+		- Número del primer clúster del archivo.
+		- Tamaño del archivo.
+	- **Área de datos**: contiene el contenido de los archivos. Se divide en clústeres (bloques de tamaño fijo). Los archivos pueden ocupar múltiples clústeres no contiguos, con la FAT manteniendo la lista de enlaces.
+
+---
+
+10. ¿Qué utilidad tiene el campo de bits o free list?
+	
+    En los sistemas de archivos, se necesita una forma eficiente de rastrear qué bloques o clústeres están libres y cuáles están ocupados. Para ello, se utilizan dos métodos principales.
+	
+    - **Bitmap** (Campo de Bits): es una estructura en la que cada bit representa un bloque o clúster (0 = libre; 1 = ocupado).
+		
+        **Ventajas**: 
+		- Búsqueda eficiente de bloques libres secuenciales.
+		- Bajo consumo de espacio.
+		- Se puede recorrer secuencialmente para encontrar fragmentación.
+	    
+        **Desventajas**:
+		- Puede ser ineficiente en discos muy grandes, ya que la estructura crece proporcionalmente.
+		- Requiere exploración para encontrar un bloque libre en sistemas muy fragmentados.
+	
+    - **Free List** (Lista de Bloques Libres): es una lista enlazada de bloques disponibles. Cada bloque libre contiene un puntero al siguiente bloque libre.
+	
+    	**Ventajas**:
+		- Se puede recorrer fácilmente sin necesidad de leer toda la estructura.
+		- No requiere un área reservada fija para almacenar la lista.
+	
+    	**Desventajas**:
+		- Acceso menos eficiente que un bitmap, ya que se debe recorrer la lista.
+		- Puede generar fragmentación si no se ordenan los bloques libres correctamente.
+
+---
+
+11. ¿Cómo está conformado el i-nodo, describa cada parte? De qué forma se los emplea al guardar o leer un archivo en disco.
+	
+    - **Número del i-nodo**: identificador único.
+	- **Permisos de acceso** (r = read / w = write / x = execute).
+	- **Propietario** (UID) y **grupo** (GID).
+	- **Tiempos de acceso**: almacena los tres tipos de tiempos del archivo:
+		- Acceso (atime): La última vez que se accedió al archivo.
+		- Modificación (mtime): La última vez que se modificó el contenido del archivo.
+		- Cambio de i-nodo (ctime): La última vez que se cambió la estructura del i-nodo.
+	- **Tamaño del archivo** (en bytes).
+	- **Punteros a bloques de datos**: existen varios tipos de punteros:
+		- Punteros directos: señalan bloques de datos directamente.
+		- Punteros indirectos: apuntan a bloques que contienen punteros a bloques de datos.
+		- Punteros dobles y triples indirectos: usados cuando el archivo es muy grande y requiere más punteros.
+	- **Número de enlaces**: indica cuántos enlaces duros apuntan a este i-nodo (es decir, cuántos nombres de archivo corresponden al mismo i-nodo). Cuando el contador llega a cero, el sistema puede liberar el i-nodo y sus bloques asociados.
+	
+    Cuando se **crea o escribe** un archivo, el sistema operativo realiza los siguientes pasos:
+	- Asignación del i-nodo.
+	- Ajuste de los permisos y metadatos: Se establecen el propietario, grupo, y los permisos de acceso.
+	- Asignación de bloques de datos: Se ubican bloques de datos en el disco donde se almacenará el contenido del archivo. El i-nodo se actualiza con punteros a estos bloques.
+	- Actualización del contador de enlaces: Si el archivo tiene enlaces duros, el contador aumenta.
+	
+    Cuando se **lee** un archivo, el sistema operativo realiza los siguientes pasos:
+	- Recuperación del i-nodo: El sistema utiliza el número de i-nodo para acceder a la información sobre el archivo.
+	- Acceso a los bloques de datos: Con los punteros del i-nodo, el sistema localiza los bloques de datos en disco y lee el contenido del archivo.
+	- Lectura de metadatos: Se puede obtener información adicional como el tamaño del archivo, los tiempos de acceso, etc.
+
+---
+
+12. Ídem anterior para la FAT del DOS.
+	
+    La **FAT** es simplemente una lista de entradas, donde cada entrada representa un clúster del disco y contiene un valor de 12, 16 o 32 bits dependiendo de la versión de FAT (FAT12, FAT16 o FAT32).
+	
+    **Guardar un Archivo**:
+	- Se busca espacio libre en la FAT.
+	- Se asignan clústeres al archivo y se crea una lista enlazada.
+	- Se actualiza el directorio raíz con la información del archivo (nombre, primer clúster, tamaño).
+	
+    **Leer un Archivo**:
+	- El sistema busca el nombre del archivo en el directorio raíz.
+	- Obtiene su primer clúster de la FAT.
+	- Sigue la lista enlazada de clústeres en la FAT para recuperar todo el archivo.
+	- Lee los datos del área de datos y los carga en memoria.
+
+---
+
+13. ¿Qué entiende por BootLoader? ¿Cuál es su contenido, bajo que tipo de formateo lógico?
+	
+    El **BootLoader** (o cargador de arranque) es un programa pequeño que se ejecuta cuando se enciende una computadora o dispositivo. Su principal función es cargar el sistema operativo en la memoria RAM y transferirle el control. El BootLoader es el primer software que se ejecuta después de que el BIOS/UEFI realiza las comprobaciones iniciales del hardware (POST, Power-On Self-Test).
+	
+    El BootLoader generalmente contiene:
+	- Código de inicialización: realiza tareas básicas de configuración del hardware, como inicializar la memoria, los controladores de disco y otros dispositivos críticos.
+	- Cargador del kernel: localiza el kernel del sistema operativo en el disco duro y lo carga en la memoria RAM.
+	- Gestión de particiones: identifica la partición activa o la partición que contiene el sistema operativo.
+	- Interfaz de usuario: algunos BootLoaders, como GRUB, ofrecen un menú para seleccionar entre múltiples sistemas operativos o kernels.
+	- Módulos adicionales: algunos BootLoaders pueden cargar módulos adicionales, como controladores de hardware o sistemas de archivos, para facilitar el arranque.
+	
+    El BootLoader generalmente se almacena en una partición específica del disco duro o en un área reservada del medio de almacenamiento. Dependiendo del sistema, el formateo lógico y la ubicación pueden variar.
+	
+    El BootLoader debe ser compatible con el sistema de archivos de la partición donde reside el sistema operativo (por ejemplo, NTFS para Windows, ext4 para Linux, etc.).
+
+---
+
+14. Describir las operaciones posibles a realizar sobre un directorio.
+
+	- Creción / eliminación de un directorio.
+	- Apertura / lectura / modificación de un directorio.
+	- Copiar un directorio.
+	- Cambio de permisos y atributos.
+	- Creación / eliminación de enlaces: permite crear y eliminar referencias (accesos directos) a archivos y directorios dentro del sistema de archivos.
+	- Montaje / desmontaje de un directorio.
+
+---
+
+15. ¿Qué ventajas introduce una estructura de directorios arborescente?
+	
+    Un sistema de archivos con estructura de árbol jerárquico (o arborescente) organiza los archivos y directorios de manera estructurada, comenzando desde un directorio raíz (/ en Unix/Linux o C:\ en Windows) y permitiendo múltiples niveles de subdirectorios.
+	
+    **Ventajas**:
+	- Organización y Estructura Clara
+	- Uso Eficiente del Espacio: reduce la duplicación de archivos mediante enlaces y optimiza la asignación de espacio en disco al evitar archivos dispersos sin relación.
+	- Permite Control de Acceso: se pueden establecer permisos de lectura, escritura y ejecución a nivel de directorio o subdirectorio.
+	- Facilita la Búsqueda y Administración
+	- Permite Implementar Sistemas de Seguridad y Backup: se pueden hacer copias de seguridad (backup) de directorios específicos sin necesidad de respaldar todo el sistema.
+	- Mejora la Escalabilidad: permite agregar nuevas carpetas y archivos sin afectar el funcionamiento del sistema.
+
+---
+
+16. Indicar que inconvenientes se pueden llegar a tener en una estructura de directorios con forma de grafos acíclicos.
+	
+    Una estructura de directorios en forma de grafo acíclico dirigido permite que un mismo archivo o directorio tenga múltiples padres a través de enlaces duros o simbólicos. Esto introduce varias ventajas, como la reutilización de archivos sin duplicarlos, pero también algunos problemas:
+	- Complejidad en la Gestión de Archivos y Directorios: como un archivo puede pertenecer a varios directorios, su administración se vuelve más difícil.
+	- Eliminación de Archivos (Problema de Referencias): en sistemas que permiten enlaces duros, un archivo no se elimina inmediatamente al borrar un enlace a él. Se debe contar el número de referencias y eliminar el archivo solo cuando ninguna referencia lo usa. Si el conteo de referencias falla, el archivo puede quedar inaccesible pero seguir ocupando espacio.
+	- Problema de Accesos y Permisos: si un archivo tiene varios padres, pueden existir conflictos con los permisos de acceso.
+	- Complejidad en el Recorrido del Sistema de Archivos.
+	- Posible Desincronización con Copias de Seguridad.
+
+---
+
+17. Indicar que tipos de protección se pueden incorporar a los archivos en general, qué ventaja aporta hacerlo.
+
+	La protección de archivos es esencial en un sistema operativo para evitar accesos no autorizados, corrupción de datos y garantizar la seguridad de la información.
+	
+    - **Permisos de Usuario y Grupos** (Control de Acceso Basado en Usuarios): se basa en la asignación de permisos a usuarios y grupos. Se pueden establecer diferentes niveles de acceso ( (r)ead/(w)rite/e(x)ecute )
+	- **Listas de Control de Acceso** (ACLs - Access Control Lists): son un método más flexible que los permisos tradicionales. Permiten definir permisos específicos para varios usuarios o grupos sobre un mismo archivo.
+	- **Contraseñas**: se cifra el archivo con una clave secreta para que solo pueda ser abierto con una contraseña.
+
+---
+
+18. Indique cuántos subdirectorios encuentra en el directorio principal del disco rígido, de su instalación Linux. Describir cuál es el contenido de cada uno.
+
+| Directorio        | Contenido               |
+|:------------------|:------------------------|
+| `/` (raíz)        | Contiene todos los archivos del sistema. Sin este, el sistema no puede funcionar. |
+| `/bin`            | Contiene **ejecutables esenciales** (`ls`, `cp`, `mv`, `cat`, `bash`). Sin esto, no podrías usar comandos básicos. |
+| `/sbin`           | Ejecutables de administración (`shutdown`, `fdisk`). Solo lo usa `root`. |
+| `/etc`            | Contiene **archivos de configuración** (`/etc/passwd`, `/etc/fstab`, `/etc/network/interfaces`). Sin esto, el sistema no sabría cómo iniciar o configurarse. |
+| `/home`           | Carpeta personal de los usuarios. Si se borra, se pierden los archivos de cada usuario. |
+| `/root`           | Carpeta personal del usuario `root`. Si se borra, `root` pierde su configuración. |
+| `/lib` y `/lib64` | Bibliotecas necesarias para los binarios de `/bin` y `/sbin`. Si se eliminan, los comandos básicos dejan de funcionar. |
+| `/boot`           | Contiene el kernel (`vmlinuz`), el cargador de arranque (`grub`). Sin esto, **el sistema no arranca**. |
+| `/dev`            | Archivos de dispositivos (`/dev/sda`, `/dev/tty`). Permite que el sistema acceda a discos, USBs y terminales. |
+| `/proc` y `/sys`  | Contienen **información en tiempo real** sobre el sistema. Si desaparecen, algunos comandos como `top` o `ps` no funcionarían. |
+| `/usr`            | Contiene programas y herramientas (`/usr/bin`, `/usr/lib`). Es donde se almacenan la mayoría de los ejecutables. |
+| `/var`            | Contiene archivos **variables** como logs (`/var/log`), colas de impresión y bases de datos temporales. Si se borra, el sistema pierde registros importantes. |
 
 ---
 
