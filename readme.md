@@ -10,3 +10,5 @@
  [Administración de Memoria](memoria.md)
 
  [Sistemas de Archivos](/archivos/archivos.md)
+
+ [Dispositivos de E-S](/dispositivos.md)
