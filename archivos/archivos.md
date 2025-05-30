@@ -5,6 +5,7 @@
 ## Índice
 
 - [Guía Teórica](#guía-teórica)
+
 - [Ejercicios](#ejercicios)
 
 ---
