@@ -266,12 +266,10 @@ Algunas magnitudes clave:
 **Resolución**
 
 Dado el siguiente dispositivo de disco:
-Latencia: 8 ms
-Velocidad de transferencia: 100 MB/s
-Tamaño de bloque: 4 KB
-a) Calcular el tiempo total de E/S para una sola operación.
-b) Calcular cuántas operaciones completas se pueden hacer en 1 segundo.
-c) Si el sistema necesita leer 10 MB de datos, ¿cuánto tiempo tomaría?
+
+- Latencia: 8 ms
+- Velocidad de transferencia: 100 MB/s
+- Tamaño de bloque: 4 KB
 
 **a)** 
 
