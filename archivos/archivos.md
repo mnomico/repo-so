@@ -2,6 +2,8 @@
 
 # Sistemas de Archivos
 
+***Leer capítulo 11 del libro de Silberschatz o [este resumen](https://www.cs.uic.edu/~jbell/CourseNotes/OperatingSystems/12_FileSystemImplementation.html)***
+
 ## Índice
 
 - [Guía Teórica](#guía-teórica)
