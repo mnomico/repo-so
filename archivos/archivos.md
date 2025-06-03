@@ -6,6 +6,8 @@
 
 - [Guía Teórica](#guía-teórica)
 
+- [FAT e Inodo](#fat-e-inodo)
+
 - [Ejercicios](#ejercicios)
 
 ---
@@ -324,6 +326,57 @@
 | `/proc` y `/sys`  | Contienen **información en tiempo real** sobre el sistema. Si desaparecen, algunos comandos como `top` o `ps` no funcionarían. |
 | `/usr`            | Contiene programas y herramientas (`/usr/bin`, `/usr/lib`). Es donde se almacenan la mayoría de los ejecutables. |
 | `/var`            | Contiene archivos **variables** como logs (`/var/log`), colas de impresión y bases de datos temporales. Si se borra, el sistema pierde registros importantes. |
+
+---
+
+## FAT e Inodo
+
+### FAT
+
+***Importante ver antes lo de asignación enlazada***
+
+Una variación importante de la asignación encadenada es el uso de una tabla de asignación de archivos (FAT, File Allocation Table). Este método simple pero eficiente de asignación de espacio en disco es usado por los sistemas operativos MS-DOS y OS/2.
+
+Se reserva una sección del disco, al comienzo de cada volumen, para contener esta tabla. La tabla tiene una entrada por cada bloque de disco y está indexada por número de bloque.
+
+La FAT se usa de forma muy similar a una lista enlazada.
+La entrada de directorio de un archivo contiene el número de bloque del primer bloque del archivo. La entrada de la tabla, indexada por ese número de bloque, contiene el número del siguiente bloque del archivo. Esta cadena continúa hasta el último bloque, el cual contiene un valor especial de fin de archivo (end-of-file) en su entrada de tabla.
+
+Los bloques sin uso se indican con un valor 0 en la tabla.
+Asignar un nuevo bloque a un archivo es tan simple como buscar la primera entrada de la tabla con valor 0, reemplazar el valor de fin de archivo anterior con la dirección del nuevo bloque, y luego reemplazar el 0 con el nuevo valor de fin de archivo.
+
+![FAT](FAT.jpg)
+
+El esquema de asignación FAT puede provocar un número considerable de desplazamientos del cabezal del disco, a menos que la FAT se mantenga en caché. El cabezal del disco debe moverse al inicio del volumen para leer la FAT y encontrar la ubicación del bloque en cuestión, y luego moverse a la ubicación de ese bloque. En el peor caso, ambos desplazamientos ocurren para cada bloque del archivo.
+
+Una ventaja es que se mejora el tiempo de acceso aleatorio, ya que el cabezal puede encontrar la ubicación de cualquier bloque leyendo la información contenida en la FAT.
+
+[Implementación en C](#wip) (coming soon™)
+
+### Inodo
+
+***Importante ver antes lo de asignación indexada***
+
+Otra alternativa basada en la asignación indexada, usada en UFS (Unix File System), es mantener los primeros 15 punteros del bloque índice dentro del i-nodo del archivo.
+
+Los primeros 12 de estos punteros apuntan a bloques directos; es decir, contienen las direcciones de los bloques que almacenan los datos reales del archivo.
+De este modo, los datos de archivos pequeños (de no más de 12 bloques) no necesitan un bloque índice separado.
+Si el tamaño de bloque es de 4 KB, entonces se pueden acceder directamente hasta 48 KB de datos.
+
+Los tres punteros siguientes apuntan a bloques indirectos:
+
+- El primer puntero apunta a un bloque indirecto simple, que es un bloque de índice que no contiene datos sino direcciones de bloques que sí contienen los datos.
+
+- El segundo puntero apunta a un bloque doblemente indirecto, que contiene la dirección de un bloque que a su vez contiene direcciones de bloques que contienen punteros a los bloques de datos reales.
+
+- El último puntero contiene la dirección de un bloque triplemente indirecto.
+
+![I-nodo](inodo.jpg)
+
+Con este método, la cantidad de bloques que se pueden asignar a un archivo supera el espacio direccionable por los punteros de archivo de 4 bytes (32 bits) utilizados por muchos sistemas operativos.
+Un puntero de archivo de 32 bits solo puede alcanzar 2³² bytes, o 4 GB.
+
+[Implementación en C](#wip) (coming soon™)
 
 ---
 
