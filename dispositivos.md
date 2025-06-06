@@ -12,41 +12,209 @@
 
 1. ¿Qué son los spooling y el buffering en el contexto de E/S? ¿En qué se diferencian y qué problemas ayudan a resolver?
 
+Son técnicas de administración de E/S que buscan mejorar la eficiencia y coordinación entre los dispositivos de entrada/salida (que suelen ser lentos) y el procesador (mucho más rápido).
+
+Buffering consiste en utilizar áreas intermedias de memoria (buffers) donde se almacenan temporalmente los datos mientras se transfieren entre un dispositivo de E/S y el procesador.
+
+Sirve para:
+- Evitar que el procesador quede bloqueado esperando a que un dispositivo lento complete una operación.
+- Permitir que los dispositivos trabajen de forma asíncrona respecto al procesador.
+- Mejorar el rendimiento general del sistema.
+
+Spooling (Simultaneous Peripheral Operations On-Line) es una técnica más general que implica colocar los datos de una operación de E/S en un archivo o área de almacenamiento intermedio en disco (spool) antes de enviarlos al dispositivo de destino.
+
+Sirve para:
+- Permitir que varios procesos puedan generar operaciones de E/S sin esperar que el dispositivo esté libre.
+- Centralizar y organizar el acceso a dispositivos compartidos (como impresoras o correos).
+- Evitar que procesos se bloqueen esperando el uso exclusivo de un dispositivo lento o único.
+
+| Buffering                                                                   |  Spooling                                                               |
+| :----------------------------------------------------------------------------- | :------------------------------------------------------------------------ |
+| Usa **memoria RAM** para almacenar datos temporalmente.                        | Usa **archivos en disco** como almacenamiento intermedio.                 |
+| Pensado para mejorar la eficiencia de **una transferencia de E/S** específica. | Pensado para coordinar el acceso a **dispositivos compartidos**.          |
+| Suele trabajar en **tiempo real o casi inmediato**.                            | Se basa en **colas o archivos temporales** que pueden procesarse después. |
+| Gestiona datos en **bloques pequeños o buffers**.                              | Gestiona **operaciones completas o archivos**.                            |
+| Ej: buffer de audio o video, buffer de teclado.                                | Ej: cola de impresión, servidor de correo.                                |
+
+Resuelven los siguientes problemas:
+- Reducen los tiempos de espera del procesador por operaciones de E/S.
+- Permiten el trabajo concurrente de procesos y dispositivos lentos.
+- Organizan el acceso a recursos compartidos como impresoras o discos.
+- Aumentan la eficiencia y rendimiento del sistema operativo.
+
 ---
 
 2. ¿Cuál es la función del módulo de gestión de dispositivos (device driver) en un sistema operativo y cómo interactúa con el sistema operativo y el hardware?
+
+Un device driver es un módulo de software dentro del sistema operativo que permite que el sistema y las aplicaciones puedan comunicarse correctamente con un dispositivo de hardware.
+
+- Traduce las peticiones de alto nivel del sistema operativo (como “leer este archivo del disco” o “enviar datos por la impresora”) a instrucciones específicas que el hardware puede entender y ejecutar.
+- Oculta los detalles técnicos del hardware al resto del sistema operativo, proporcionando una interfaz estandarizada para que todos los dispositivos se gestionen de forma coherente aunque sean de diferentes marcas o modelos.
+- Gestiona operaciones de E/S (lectura, escritura, control, configuración) controlando el acceso a los dispositivos de forma segura y eficiente.
+
+Interacción con el sistema operativo y el hardware:
+1. Una aplicación solicita una operación de E/S (ej: leer un archivo).
+2. El sistema operativo envía la solicitud al device driver correspondiente.
+3. El driver traduce esa solicitud en comandos específicos para el hardware.
+4. El hardware ejecuta la operación y devuelve el resultado al driver.
+5. El driver notifica al sistema operativo, que a su vez informa a la aplicación.
 
 ---
 
 3. ¿Cuál es el objetivo de un administrador de interrupciones y la de un driver del dispositivo?
 
+El administrador de interrupciones (interrupt handler o interrupt controller) es responsable de:
+- Detectar, gestionar y atender interrupciones generadas por dispositivos de hardware, temporizadores, o incluso por software.
+- Decidir qué hacer cuando ocurre una interrupción:
+    - Pausar temporalmente la ejecución del proceso actual.
+    - Guardar su estado (contexto).
+    - Atender la interrupción mediante una rutina específica (ISR, Interrupt Service Routine).
+    - Restaurar el estado del proceso previo y reanudar su ejecución.
+
+Sirve para que los dispositivos puedan notificar al procesador de eventos importantes (ej: llegó un dato desde el teclado, terminó de transferirse un archivo) sin tener que esperar activamente (polling).
+
+El driver del dispositivo es un módulo de software que:
+- Traduce las solicitudes del sistema operativo o de las aplicaciones en comandos específicos que entiende el hardware.
+- Administra y controla las operaciones del dispositivo (lectura, escritura, configuración, etc.).
+- Recibe información del hardware y la devuelve de forma comprensible al sistema operativo.
+
+Sirve para abstraer las diferencias entre distintos dispositivos y permitir que el sistema operativo y las aplicaciones trabajen con ellos mediante una interfaz común, sin preocuparse por los detalles técnicos.
+
 ---
 
 4. ¿Qué es la abstracción de dispositivo y cómo ayuda a lograr la independencia de hardware en el diseño del sistema operativo?
+
+La abstracción de dispositivo es un mecanismo por el cual el sistema operativo oculta los detalles específicos de hardware y ofrece una interfaz uniforme y estandarizada para que las aplicaciones y procesos interactúen con los dispositivos de entrada/salida (E/S).
+
+Gracias a esta abstracción:
+- Las aplicaciones no necesitan conocer cómo funciona un dispositivo específico (por ejemplo, cómo se comunica una impresora HP frente a una Epson).
+- Se puede cambiar un dispositivo físico por otro de diferente marca o modelo sin tener que modificar las aplicaciones ni el resto del sistema operativo.
+- El sistema operativo se vuelve más flexible, modular y portable, ya que sólo los drivers de dispositivo se encargan de las diferencias concretas de hardware.
 
 ---
 
 5. ¿Qué se entiende por independencia del dispositivo?
 
+La independencia del dispositivo se refiere a la capacidad de una aplicación o sistema para funcionar correctamente sin depender de un tipo específico de hardware o dispositivo. En otras palabras, una aplicación independiente del dispositivo puede ejecutarse en diferentes dispositivos o plataformas sin requerir modificaciones significativas en su código o funcionalidad.
+
 ---
 
 6. Describe las principales funciones del sistema operativo relacionadas con la gestión de E/S. ¿Cómo se organiza la pila de  software de E/S desde la aplicación hasta el dispositivo físico?
+
+Las funciones principales del sistema operativo relacionadas con la gestión de E/S son:
+
+| Función                                 | Descripción                                                                                              |
+| :----------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| **Control de dispositivos**                | Gestiona la activación, desactivación y configuración de dispositivos.                                      |
+| **Planificación de E/S**                   | Determina qué peticiones de E/S se atienden y en qué orden, para optimizar el uso de recursos.              |
+| **Gestión de buffers**                     | Utiliza áreas de memoria intermedias (buffers) para almacenar datos mientras se transfieren.                |
+| **Gestión de caché**                       | Almacena datos frecuentemente usados en memoria para acelerar accesos a dispositivos lentos.                |
+| **Spooling**                               | Administra trabajos en cola, como la impresión, para evitar que un proceso monopolice un recurso.           |
+| **Asignación y liberación de recursos**    | Controla qué proceso accede a qué dispositivo y cuándo, evitando conflictos y asegurando la disponibilidad. |
+| **Detección y manejo de errores**          | Supervisa y gestiona errores que ocurren durante las operaciones de E/S.                                    |
+| **Interfaz de abstracción de dispositivo** | Ofrece una interfaz uniforme a las aplicaciones independientemente del hardware subyacente.                 |
+
+La pila de software de E/S se organiza en capas o niveles, cada una con responsabilidades bien definidas. Esto permite modularidad, abstracción y facilidad de mantenimiento.
+
+| Capa                                      | Descripción                                                                |
+| :---------------------------------------- | :------------------------------------------------------------------------- |
+| **Aplicación**                            | Solicita operaciones de E/S sin preocuparse por cómo se realizan.          |
+| **Llamadas al sistema**                   | Proveen funciones estandarizadas para E/S (open, read, write, etc.).       |
+| **Gestor de E/S del SO**                  | Coordina operaciones de E/S, gestiona buffers, decide orden de atención.   |
+| **Driver de dispositivo (device driver)** | Controla el hardware específico, traduce comandos genéricos a específicos. |
+| **Dispositivo físico**                    | Realiza la operación física de E/S.                                        |
 
 ---
 
 7. ¿Por qué los archivos de salida de la impresora normalmente se manejan por cola de impresión en el disco antes de ser impresos?
 
+Porque la impresora es un dispositivo de E/S lento y secuencial, y para evitar que un proceso o usuario tenga que esperar a que termine de imprimirse un archivo antes de continuar, el sistema operativo usa spooling.
+
+Ventajas de usar colas de impresión:
+
+|  Ventaja                                      |  Descripción                                                              |
+| :-------------------------------------------- | :-------------------------------------------------------------------------- |
+| **Evita bloquear procesos**                   | Los programas no tienen que esperar a que el trabajo se imprima.            |
+| **Permite la planificación de impresiones**   | Se pueden ordenar, pausar, reanudar o cancelar trabajos en la cola.         |
+| **Mejora el uso del sistema**                 | Permite que varios procesos envíen trabajos simultáneamente sin conflictos. |
+| **Reduce la pérdida de datos**                | Si la impresora falla o se apaga, los trabajos siguen guardados en disco.   |
+| **Permite gestionar prioridades de trabajos** | Se pueden organizar según importancia o tamaño.                             |
+
+Si no existiera este mecanismo:
+- Solo un proceso podría imprimir a la vez.
+- El proceso que imprime quedaría bloqueado hasta terminar.
+- Si la impresora falla, se perdería el trabajo o todo se detendría.
+
 ---
 
 8. Describa en qué consiste el estancamiento y qué condiciones deben darse para que se produzca.
+
+(esto es de procesos, no se qué hace acá)
+
+El estancamiento o deadlock es una situación en un sistema operativo donde un conjunto de procesos quedan bloqueados permanentemente, porque cada uno espera por un recurso que está siendo retenido por otro proceso del mismo conjunto.
+
+|  Condición                        |  Descripción                                                                                                          |
+| :---------------------------------- | :---------------------------------------------------------------------------------------------------------------------- |
+| **Mutua exclusión**                 | Al menos un recurso debe estar en modo exclusivo (solo un proceso puede usarlo a la vez).                               |
+| **Retención y espera**              | Un proceso que ya posee uno o más recursos puede solicitar recursos adicionales y debe esperar si no están disponibles. |
+| **No expropiación (No-preemption)** | Los recursos no se pueden quitar a un proceso hasta que los libere voluntariamente.                                     |
+| **Espera circular**                 | Debe existir una cadena de procesos, donde cada uno espera un recurso que otro de la cadena posee.                      |
+
 
 ---
 
 9. ¿Qué ventaja introduce la capacidad de “localización superpuesta en unos discos”, y cuáles son los tiempos involucrados en la lectura o escritura de un bloque de disco?
 
+La "localización superpuesta en unos discos" (interleaving) es una técnica que se utiliza en sistemas de almacenamiento, especialmente en discos duros, para mejorar la eficiencia en el acceso a los datos. La ventaja principal de esta técnica es mejorar el rendimiento de lectura y escritura al reducir los tiempos de acceso.
+
+La localización superpuesta consiste en distribuir los datos de manera que la lectura o escritura de bloques en el disco no dependa de un acceso secuencial estricto a cada bloque de manera consecutiva. Esto puede implicar distribuir bloques de datos de forma alternada o en un patrón diseñado para aprovechar la velocidad de acceso del disco.
+
+Cuando se realiza una operación de lectura o escritura en un disco, hay varios tiempos involucrados:
+- Latencia (o tiempo de búsqueda): es el tiempo que tarda el disco en posicionar el cabezal de lectura/escritura sobre el bloque de datos deseado. Depende de la posición actual del cabezal y de cuán lejos esté el bloque de los datos solicitados. En discos duros, la latencia depende del tiempo de búsqueda, que se divide en tiempo de búsqueda aleatoria y tiempo de búsqueda secuencial.
+	- El tiempo necesario para mover el brazo del cabezal a la pista donde se encuentra el bloque de datos es generalmente entre 4 y 10 milisegundos en discos tradicionales.
+- Latencia rotacional: después de que el cabezal se haya posicionado correctamente, puede ser necesario esperar a que el bloque de datos se alinee con el cabezal, ya que los discos giran a una velocidad constante (revoluciones por minuto, RPM). La latencia rotacional es el tiempo que tarda el disco en girar hasta que el bloque deseado pasa por debajo del cabezal.
+	- En discos tradicionales, la latencia rotacional es típicamente de 4 a 10 milisegundos dependiendo de la velocidad de rotación del disco.
+- Transferencia de datos: este tiempo es relativamente bajo en comparación con la latencia y puede estar en el orden de los microssegundos o milisegundos, dependiendo de la velocidad de transferencia del disco.
+- Tiempo total de acceso: es la suma de la latencia de búsqueda, la latencia rotacional y el tiempo de transferencia de datos.
+
+        Tiempo total de acceso = Latencia de búsqueda + Latencia rotacional + Tiempo de transferencia
+
 ---
 
 10. ¿Cómo maneja un sistema operativo los errores de E/S? Menciona tipos comunes de errores y las estrategias utilizadas para su detección y recuperación.
+
+Los sistemas operativos gestionan las operaciones de entrada/salida (E/S) a través de controladores de dispositivo (drivers) y capas de software. Durante estas operaciones pueden ocurrir errores, que deben ser detectados, informados y en muchos casos recuperados para mantener la estabilidad del sistema.
+
+Cuando ocurre un error:
+- El driver o el hardware genera una señal de error o código de estado.
+- El sistema operativo lo detecta y decide cómo manejarlo según la política del sistema y la gravedad.
+
+Tipos comunes de errores de E/S:
+| Tipo de error                     | Ejemplo                                                 |
+| :----------------------------------- | :--------------------------------------------------------- |
+| **Error de dispositivo**             | Falla de disco, desconexión de un pendrive.                |
+| **Error de medio**                   | Sectores defectuosos en disco, error de lectura en CD/DVD. |
+| **Error de comunicación**            | Paquetes de red corruptos o no recibidos.                  |
+| **Tiempo excedido (timeout)**        | El dispositivo no responde en el tiempo esperado.          |
+| **Error de paridad/datos corruptos** | Bytes recibidos con error de verificación de integridad.   |
+| **Permisos o acceso denegado**       | Proceso intenta acceder a dispositivo no autorizado.       |
+
+Estrategias para detección y recuperación de errores de E/S:
+
+Detección:
+- Códigos de estado devueltos por el driver.
+- Interrupciones de error enviadas por el hardware.
+- Chequeo de timeout si el dispositivo no responde a tiempo.
+- Verificación de integridad (CRC, paridad, checksum).
+
+Recuperación:
+- Reintentar la operación (por ejemplo, una lectura de disco).
+- Ignorar el error (si es leve o no crítico).
+- Notificar al usuario o proceso afectado.
+- Registrar el error en el log del sistema.
+- Marcar sectores defectuosos para no usarlos (disco).
+- Abortar la operación y cerrar la conexión al dispositivo.
+- Remover o reinicializar el dispositivo si es posible.
 
 ---
 
@@ -299,6 +467,16 @@ En 1 segundo se pueden hacer 124 operaciones completas.
     Cantidad de bloques a leer = 10MB / 0.004MB = 2500 bloques
     Cantidad que tomaría leer 2500 bloques = 2500 * 8.04ms = 20100ms = 20.1s
 
+Repetir con un segundo disco que tiene:
+
+Latencia: 3 ms, Velocidad: 50 MB/s, mismo tamaño de bloque.
+
+Comparar rendimiento y tomar decisiones basadas en los cálculos.
+
+**a)**
+
+    
+
 ---
 
 5. Comparación de métodos de E/S
@@ -329,6 +507,8 @@ En 1 segundo se pueden hacer 124 operaciones completas.
 
     **b**. Si el sistema lee el buffer cada 25 ms y extrae 1024 bytes, ¿el sistema puede mantenerse sin pérdida de datos? Justificar.
 
+---
+
 7. En cuál de los cuatro estratos del software de E/S se hace cada una de las siguientes actividades:
 
     **a**. Determinación de la pista, sector y cabeza en una lectura de disco
@@ -341,6 +521,64 @@ En 1 segundo se pueden hacer 124 operaciones completas.
 
     **e**. Conversión de enteros binarios a ASCII para su impresión
 
+| Actividad                                                                  | Estrato                                                                                                                                                         |
+| :---------------------------------------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **a. Determinación de la pista, sector y cabeza en una lectura de disco**     | **Controlador de dispositivos (3)** → porque aquí se traduce la dirección lógica a física y se envían los comandos específicos al hardware.                        |
+| **b. Conservación de una reserva de bloques usados recientemente**            | **Manejadores independientes de dispositivos (2)** → aquí se administra la caché de bloques, buffers o bloques reservados de disco.                                |
+| **c. Escritura de comandos en los registros de dispositivos**                 | **Controlador de dispositivos (3)** → porque este estrato interactúa directamente con los registros de control del hardware.                                       |
+| **d. Verificación de si el usuario tiene permiso de utilizar el dispositivo** | **Nivel de usuario / Llamadas de sistema (1)** → porque el SO verifica los permisos de acceso antes de permitir la operación.                                      |
+| **e. Conversión de enteros binarios a ASCII para su impresión**               | **Nivel de usuario / Llamadas de sistema (1)** → porque la conversión de formatos es parte de las funciones de la aplicación o el runtime antes de invocar la E/S. |
+
+
+---
+
 8. Indicar cómo se puede construir un disco en RAM, y para qué puede resultar ventajoso hacerlo.
 
+Un RAM disk (o disco RAM) es una porción de la memoria RAM del sistema que se reserva y se utiliza como si fuera una unidad de disco (como /dev/ram0 en Linux). Se monta como un sistema de archivos y permite leer y escribir archivos en ella.
+
+Ventajas:
+- Altísima velocidad de acceso (lectura/escritura mucho más rápida que un disco físico o SSD).
+- Ideal para:
+    - Almacenar archivos temporales que se usan intensivamente y se descartan luego.
+    - Ejecutar programas que hacen uso constante de archivos pequeños.
+    - Compilar software o realizar operaciones de E/S pesadas más rápido.
+    - Evitar escrituras innecesarias en discos SSD, prolongando su vida útil.
+
+En Linux:
+- Crear un directorio donde se montará:
+
+        sudo mkdir /mnt/ramdisk
+- Montar un sistema de archivos tmpfs (que vive en RAM):
+
+        sudo mount -t tmpfs -o size=512M tmpfs /mnt/ramdisk
+
+Eso crea un disco de 512 MB en RAM accesible desde /mnt/ramdisk.
+
+---
+
 9. Describir cómo funciona el software de entrada, el de salida de un terminal, y los problemas asociados.
+
+Un terminal (físico o emulado) es un dispositivo de E/S secuencial, que permite a los usuarios interactuar con un sistema. El software de E/S de terminal se encarga de gestionar la entrada de teclado y la salida a pantalla, mediado por el sistema operativo.
+
+**Software de Entrada de Terminal**
+
+Responsabilidades:
+- Leer caracteres ingresados desde teclado.
+- Interpretar teclas especiales (retroceso, Enter, Ctrl+C…).
+- Realizar edición de línea si es necesario (según modo de operación: crudo, cocinado…).
+- Enviar los datos al programa o shell que los espera.
+
+Modos comunes de entrada:
+- Modo cocinado (canonical): la entrada se procesa línea por línea. El sistema espera a que el usuario pulse Enter para enviar la línea completa al programa.
+- Modo crudo (raw): los caracteres se envían al programa inmediatamente sin procesar.
+
+**Software de Salida de Terminal**
+
+Responsabilidades:
+- Recibir datos de los procesos que quieren mostrar información.
+- Interpretar caracteres de control (salto de línea, tabulación, retroceso, códigos ANSI para colores, mover cursor, etc.).
+- Mandar los caracteres a la pantalla o terminal emulada.
+
+Consideraciones:
+- La salida es secuencial.
+- Se puede usar buffers de salida para optimizar el envío en bloques.
