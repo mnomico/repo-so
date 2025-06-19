@@ -4,6 +4,8 @@
 
 ## Índice
 
+- [Guía Teórica](#guía-teórica)
+
 - [Conceptos](#conceptos)
 
 - [Planificación FCFS](#planificación-fcfs)
@@ -15,6 +17,187 @@
 - [Ejercicios](#ejercicios)
 
 - [Algoritmos](#algoritmos)
+
+---
+
+## Guía Teórica
+
+1. Definir qué entiende por proceso y por recursos. ¿Cómo se identifica a un proceso en un sistema multiproceso?
+
+Un proceso es un programa en ejecución, incluyendo el código ejecutable, los datos, el estado de ejecución y los recursos asignados. 
+
+Los recursos son los elementos que el proceso necesita para hacer sus tareas. Incluyen CPU, memoria, archivos, dispositivos de entrada/salida, entre otros. 
+
+En un sistema multiproceso, cada proceso se identifica con un Identificador de Proceso (PID), que es un número único asignado por el sistema operativo cuando el proceso es creado.
+
+---
+
+2. Describir los estados posibles de un proceso. Indicar en qué lugar físico se encuentran los procesos en los distintos estados.
+
+- Nuevo: El proceso fue creado pero todavía no fue ejecutado.
+
+Se encuentra en la memoria principal o en la cola de procesos nuevos.
+- Listo: El proceso está esperando ser asignado a la CPU para ejecutarse.
+
+Se encuentra en la cola de procesos listos.
+- En ejecución: El proceso está siendo ejecutado por la CPU.
+
+Sus instrucciones y datos están en la memoria principal, y su estado de ejecución está en los registros de la CPU.
+- Bloqueado o en espera: El proceso está detenido temporalmente porque está esperando un recurso.
+
+Permanece en la memoria principal, pero en la cola de procesos bloqueados.
+- Terminado: El proceso terminó su ejecución y es el sistema.
+
+---
+
+3. ¿Qué tipo de recursos esperan los procesos que se encuentran en estado de preparado (listos) y de qué forma se pueden administrar? Justifique su respuesta.
+
+Los procesos en estado listo están esperando ser ejecutados por la CPU, por lo que el recurso que necesitan es el procesador.
+- Planificación por FIFO (First In, First Out): el primer proceso que entra en la cola de listos es el primero en ejecutarse. Simple de implementar, pero puede generar tiempos de espera largos para procesos cortos.
+- Planificación por Prioridades: se asigna la CPU al proceso con mayor prioridad. Permite dar preferencia a procesos críticos, pero puede causar inanición de procesos con baja prioridad.
+- Round Robin: se asigna la CPU a cada proceso por un período de tiempo fijo. Si el proceso no termina en ese tiempo, vuelve a la cola de listos.Justa y equitativa, evita monopolización del procesador.
+- Shortest Job Next (SJN) o Shortest Remaining Time First (SRTF): se ejecuta el proceso más corto disponible. Minimiza el tiempo promedio de espera, pero requiere conocer la duración de los procesos.
+- Multilevel Queue Scheduling: divide los procesos en varias colas con diferentes criterios de prioridad y planificación. Separa procesos de usuario y del sistema, permitiendo mejor administración del CPU.
+
+---
+
+4. ¿Qué tipo de recursos esperan los procesos que se encuentran en estado de espera y de qué forma se puede administrar su asignación al recurso? Justifique su respuesta.
+
+Los procesos en estado de espera (bloqueado) no pueden continuar su ejecución porque están esperando la disponibilidad de algún recurso, como:
+- Dispositivos de entrada/salida (E/S).
+- Memoria.
+- Acceso a archivos.
+- Sincronización entre procesos.
+
+La asignación de estos recursos puede realizarse mediante diferentes estrategias:
+- Planificación de E/S: se usa un planificador de dispositivos para asignar solicitudes de entrada/salida. Optimiza el acceso a dispositivos de almacenamiento, reduciendo tiempos de espera.
+- Gestión de Memoria: se asigna memoria mediante paginación, segmentación o particiones dinámicas. Evita fragmentación y maximiza la utilización de la memoria.
+- Mecanismos de Sincronización: se usan semáforos, monitores o mutex para gestionar el acceso a recursos compartidos. Evita condiciones de carrera y asegura acceso seguro a recursos compartidos.
+- Planificación de Acceso a Archivos: se implementan bloqueos para evitar accesos simultáneos no controlados. Mantiene la coherencia de los datos y evita corrupción de archivos.
+
+---
+
+5. ¿Cuál es el contenido del bloque de control de procesos? Justifique ¿por qué se emplea en un sistema multiproceso? ¿Dónde se encuentra físicamente, y quien maneja su actualización.
+
+El PCB es una estructura de datos que almacena toda la información necesaria para gestionar un proceso dentro del sistema operativo. Sus principales campos incluyen:
+- Identificación del proceso (PID).
+- Estado del proceso.
+- Registros de la CPU.
+- Punteros.
+- Archivos abiertos por el proceso y sus permisos.
+- Dispositivos de entrada/salida asignados.
+- Estado de operaciones de E/S en curso.
+- Prioridad del proceso.
+- Algoritmo de planificación usado.
+- Tiempo de ejecución acumulado.
+
+En un sistema multiproceso, múltiples procesos compiten por los recursos del sistema. El PCB permite:
+- Mantener el control de cada proceso sin interferencias entre ellos.
+- Permitir la conmutación de contexto.
+- Facilitar la planificación y administración de procesos.
+
+El PCB se encuentra en una tabla de procesos dentro del espacio de memoria del kernel. Su actualización es manejada por el sistema operativo cada vez que ocurre un cambio en el estado del proceso.
+
+---
+
+6. ¿Qué ventaja introduce el uso de un administrador de corto plazo? Indicar ¿cómo está compuesto?.
+
+Su uso introduce varias ventajas en un sistema operativo multiproceso:
+- Mejora la utilización de la CPU.
+- Optimiza el tiempo de respuesta.
+- Equilibra la carga del sistema.
+- Permite la multitarea.
+- Soporta diferentes políticas de planificación.
+
+El planificador de corto plazo está compuesto por los siguientes elementos:
+- Cola de procesos listos.
+- Algoritmo de planificación.
+- Mecanismo de selección.
+- Conmutación de contexto.
+
+---
+
+7. ¿Qué es el proceso 0, y en qué se convierte una vez que el sistema arranca?
+
+El proceso 0 es el primer proceso creado por el kernel cuando el sistema operativo arranca. Se ejecuta en modo kernel y es responsable de realizar la inicialización del sistema. También se le conoce como el proceso del sistema o proceso swapper.
+
+Una vez que el sistema ha sido inicializado, el proceso 0 se convierte en:
+- Proceso idle (inactivo): Se encarga de ejecutar un bucle de espera cuando no hay otros procesos en ejecución.
+- Administrador de procesos: Se encarga de crear el proceso 1 (init), que es el ancestro de todos los demás procesos en sistemas Unix/Linux.
+
+---
+
+8. ¿Cómo se crean el proceso 1 y el proceso 2? ¿Qué funciones tienen cada uno dentro del sistema operativo?
+
+Los procesos 1 y 2 son creados por el proceso 0 al iniciarse el sistema operativo.
+
+El proceso 1 (init o systemd) se crea cuando el proceso 0 (swapper o idle) finaliza la inicialización del sistema y ejecuta un fork() seguido de un exec() para reemplazarse con init (en sistemas Unix tradicionales) o systemd (en muchas distribuciones Linux modernas).
+
+El proceso 2 (kthreadd) se crea también por el proceso 0 y es responsable de gestionar los hilos del kernel.
+
+Proceso 1 (init o systemd):
+- Es el ancestro de todos los procesos de usuario en el sistema.
+- Se encarga de iniciar los servicios del sistema (como demonios y procesos de arranque).
+- Maneja el apagado y reinicio del sistema.
+- En sistemas modernos, systemd reemplaza a init y gestiona los servicios de manera más eficiente.
+
+Proceso 2 (kthreadd):
+- Es el administrador de hilos del kernel.
+- Crea y gestiona los procesos en segundo plano (threads del kernel).
+- Es responsable de procesos esenciales como el manejo de E/S, paginación y administración de memoria.
+
+---
+
+9. ¿Qué ventaja introduce el uso de un administrador de largo plazo?
+
+El planificador de largo plazo es el encargado de controlar el grado de multiprogramación.
+
+Ventajas:
+- Control de la carga del sistema.
+- Optimización del rendimiento.
+- Mejor uso de los recursos.
+- Reducción del overhead (sobrecarga) del planificador de corto plazo.
+
+---
+
+10. Describir ¿cuál es la tarea del planificador de mediano plazo?
+
+Su función principal es manejar la multiprogramación y optimizar el uso de los recursos del sistema mediante la carga y descarga de procesos en la memoria.
+
+Si el sistema tiene demasiados procesos en ejecución, el planificador de mediano plazo decide suspender algunos procesos para liberar memoria, moviéndolos a la memoria secundaria (swap).
+
+Si el sistema tiene demasiado poco trabajo en ejecución o cuando los procesos que están en memoria principal no pueden hacer nada, el planificador de mediano plazo recarga procesos suspendidos desde el disco a la memoria.
+
+---
+
+11. Definir tiempo de espera y tiempo de retorno de un proceso.
+
+El tiempo de espera de un proceso es el tiempo transcurrido entre el momento en que un proceso llega a la cola de listos hasta que comienza a ser ejecutado por la CPU.
+
+El tiempo de retorno de un proceso es el tiempo total en el que el proceso ha estado en el sistema, incluyendo tanto el tiempo de ejecución como el tiempo de espera.
+
+---
+
+12. ¿Qué se entiende por proceso demonio en un SO Unix, cuando son ejecutados, dónde se los declara y cómo se los da de baja del sistema? ¿Cuál son los demonios más comunes dentro del Unix, y qué utilidad brindan?
+
+Un proceso demonio es un proceso en segundo plano. Realizan tareas sistemáticas y de mantenimiento. Son permanentes y se inician durante el arranque del sistema o por un proceso del sistema operativo. Los demonios suelen estar asociados con servicios o funcionalidades del sistema como la gestión de la red, impresión, correo electrónico, etc.
+
+Los demonios pueden ser declarados en archivos de configuración de inicio, en scripts de inicio o por otro proceso.
+
+Se los puede dar de baja mediante el comando kill pasándole como parámetro el PID del demonio.
+
+Demonios más comunes en Unix y su utilidad:
+
+| Demonio                       | Función                                                                                 |
+| ----------------------------- | --------------------------------------------------------------------------------------- |
+| `init` o `systemd`            | Proceso padre de todos los procesos de usuario, maneja el inicio y apagado del sistema. |
+| `kthreadd`                    | Administrador de hilos del kernel.                                                      |
+| `cron`                        | Ejecuta tareas programadas automáticamente según el archivo `crontab`.                  |
+| `sshd`                        | Maneja conexiones SSH remotas.                                                          |
+| `syslogd` o `journald`        | Administra registros de logs del sistema.                                               |
+| `udevd`                       | Gestiona eventos de hardware y dispositivos conectados.                                 |
+| `dbus-daemon`                 | Maneja la comunicación entre procesos en el sistema.                                    |
+| `networkd` o `NetworkManager` | Administra la configuración y conectividad de red.                                      |
 
 ---
 

@@ -18,14 +18,14 @@
 
 1. Describir las distintas operaciones que se pueden realizar sobre un archivo.
 
-	- **Creación**: permite generar un nuevo archivo en el sistema de archivos. Reserva un espacio en disco, crea una entrada en el directorio correspondiente e inicializa los metadatos del archivo.
-	- **Apertura**: antes de acceder a un archivo, se debe abrir. Se asigna un descriptor de archivo y carga los metadatos en memoria.
-	- **Lectura**: permite extraer datos de un archivo abierto. Se leen bloques de datos en la memoria del proceso.
-	- **Escritura**: guarda datos en un archivo, ya sea sobrescribiendo o agregando información.
-	- **Cierre**: libera los recursos asociados al archivo y garantiza que los datos escritos se guarden correctamente en el disco.
-	- **Eliminación**: borra un archivo del sistema, eliminando su entrada del directorio y liberando el espacio en disco.
-	- **Cambio de nombre**.
-	- **Búsqueda**: permite posicionarse en una parte específica del archivo.
+- **Creación**: permite generar un nuevo archivo en el sistema de archivos. Reserva un espacio en disco, crea una entrada en el directorio correspondiente e inicializa los metadatos del archivo.
+- **Apertura**: antes de acceder a un archivo, se debe abrir. Se asigna un descriptor de archivo y carga los metadatos en memoria.
+- **Lectura**: permite extraer datos de un archivo abierto. Se leen bloques de datos en la memoria del proceso.
+- **Escritura**: guarda datos en un archivo, ya sea sobrescribiendo o agregando información.
+- **Cierre**: libera los recursos asociados al archivo y garantiza que los datos escritos se guarden correctamente en el disco.
+- **Eliminación**: borra un archivo del sistema, eliminando su entrada del directorio y liberando el espacio en disco.
+- **Cambio de nombre**.
+- **Búsqueda**: permite posicionarse en una parte específica del archivo.
 
 ---
 
