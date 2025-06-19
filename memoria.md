@@ -4,6 +4,8 @@
 
 ## Índice
 
+[Guía Teórica](#guía-teórica)
+
 [Conceptos](#conceptos)
 
 [Paginación](#paginación)
